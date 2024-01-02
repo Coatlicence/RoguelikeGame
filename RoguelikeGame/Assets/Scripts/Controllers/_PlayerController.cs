@@ -19,7 +19,8 @@ public class _PlayerController : StandartController
         if (Input.GetKeyDown(KeyCode.Space))
             Dash();
 
-        Debug.Log(GetComponent<Rigidbody>().velocity);
+        if (Input.GetKeyDown(KeyCode.G))
+            Test();
     }
     protected override void Move()
     {
@@ -40,5 +41,10 @@ public class _PlayerController : StandartController
         if (dashable)
             StartCoroutine(dashable.Dash());
 
+    }
+
+    void Test()
+    {
+        Debug.Log(ArrayOfRooms.singleton.GetRoom(LocationType.LushCaves, RoomType.FightSmall).name);
     }
 }

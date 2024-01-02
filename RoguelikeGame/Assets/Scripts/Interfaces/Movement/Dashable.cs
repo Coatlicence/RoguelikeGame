@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,25 @@ public class Dashable : MonoBehaviour
     [SerializeField]
     private Rigidbody body;
 
-    [Header("Properties")]
-    protected bool CanDash = true;
+    [SerializeField]
+    private IDamagable damagable;
+    
     public bool isDashing { get; private set; } = false;
+
+    [Header("Properties")]
     [SerializeField]
-    protected float DashPower = 24f;
+    protected float DashPower = 5f;
+    
     [SerializeField]
-    protected float DashingTime = 0.2f;
+    protected float DashingTime = 0.15f;
+    
     [SerializeField]
     protected float DashingCooldown = 1f;
 
+    [SerializeField]
+    protected int DashCountsMax = 2;
+
+    protected int DashCountsCurrent = 2;
 
     private void Awake()
     {
@@ -25,22 +35,27 @@ public class Dashable : MonoBehaviour
     }
     public IEnumerator Dash()
     {
-        Debug.Log(CanDash);
-
+        // Conditions
         if (body == null) yield break;
 
-        if (!CanDash) yield break;
+        if (DashCountsCurrent == 0) yield break;
 
-        CanDash = false;
+        // Dash logic
+        DashCountsCurrent--;
+
+        body.velocity = new Vector3(Math.Sign(body.velocity.x) * DashPower, body.velocity.y, Math.Sign(body.velocity.z) * DashPower);
+
         isDashing = true;
-        body.velocity = new Vector3(body.velocity.x * DashPower, body.velocity.y, body.velocity.z * DashPower);
+        if (damagable) damagable.Invulnerable = true;
 
+        // Refreshing
         yield return new WaitForSeconds(DashingTime);
 
         isDashing = false;
+        if (damagable) damagable.Invulnerable = false;
 
         yield return new WaitForSeconds(DashingCooldown);
 
-        CanDash = true;
+        DashCountsCurrent = DashCountsMax;
     }
 }

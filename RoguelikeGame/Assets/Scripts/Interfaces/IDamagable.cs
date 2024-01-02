@@ -5,14 +5,31 @@ using UnityEngine;
 public class IDamagable : MonoBehaviour
 {
     [SerializeField]
-    int health;
+    protected int Health = 100;
+
+    [SerializeField]
+    public bool Invulnerable = false;
+
+    [SerializeField]
+    protected float InvulnerableTime = 0.1f;
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        if (Invulnerable) return;
 
-        if (health <= 0)
+        Health -= damage;
+
+        if (Health <= 0)
             Destroy(gameObject);
-    }
 
+        Invulnerable = true;
+
+        StartCoroutine(MakeObjectVurnerable(InvulnerableTime));
+    }
+    IEnumerator MakeObjectVurnerable(float timeInSec)
+    {
+        yield return new WaitForSeconds(timeInSec);
+
+        Invulnerable = false;
+    }
 }

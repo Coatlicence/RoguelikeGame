@@ -7,8 +7,10 @@ public class Movable : MonoBehaviour
     [SerializeField]
     private float Speed;
 
+    [SerializeField]
     private Rigidbody body;
 
+    [SerializeField]
     private Dashable dashable;
 
     private void Awake()
