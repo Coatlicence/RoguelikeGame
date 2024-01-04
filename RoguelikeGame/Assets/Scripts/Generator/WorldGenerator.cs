@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/* 
- * Глобальное хранилище необходимых переменных для процедурной генерации пещер.
- * 
- * Хранит в себе: уровень пещер, текущую и предыдущие точки для генерации,
- * шанс появления гигантских комнат,
- * сложность игры, награды в комнатах.
- */
+
 public class WorldGenerator : MonoBehaviour
 {
-    // Уровень пещер, сопоставляется с уровнем комнат.
+    // С‚РµСЃС‚
     [SerializeField] LocationType LocationType;
 
     [SerializeField] int MaxLengthOfLocation;
@@ -26,7 +20,7 @@ public class WorldGenerator : MonoBehaviour
         CurrentLengthOfLocation = MaxLengthOfLocation + (int)Random.Range(-SpreadOfLength, SpreadOfLength);
     }
 
-    public bool GenerateRoom(RoomType type) // true - успешная генерация комнаты
+    public bool GenerateRoom(RoomType type) 
     {
         if (CurrentLengthOfLocation < 0)
         {
@@ -35,13 +29,12 @@ public class WorldGenerator : MonoBehaviour
         }
             
                 
-        // учитываем текущую локацию, сложность игры (награды и сложность комнат с монстрами) и тип комнаты
         return true;
     }
 
     private void NextLocation()
     {
-        LocationType++; // 4 если сериантаурум, идет дальше. Код находится в альфа состоянии
+        LocationType++;
 
         CurrentLengthOfLocation = MaxLengthOfLocation + (int)Random.Range(-SpreadOfLength, SpreadOfLength);
     }
