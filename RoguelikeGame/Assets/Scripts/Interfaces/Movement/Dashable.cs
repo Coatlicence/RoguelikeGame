@@ -16,7 +16,7 @@ public class Dashable : MonoBehaviour
 
     [Header("Properties")]
     [SerializeField]
-    protected float DashPower = 5f;
+    protected float DashPower = 100f;
     
     [SerializeField]
     protected float DashingTime = 0.15f;
