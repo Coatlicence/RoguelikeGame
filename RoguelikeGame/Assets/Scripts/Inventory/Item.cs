@@ -7,20 +7,16 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Assets.Scripts
+public abstract class Item : MonoBehaviour
 {
-    public abstract class Item : MonoBehaviour
+    public string _Name { get; }
+    public uint _Price { get; }
+    public uint _Weight { get; }
+    public int _Durability { get; }
+    public struct Volume
     {
-        //protected int _Id;
-        protected string _Name;
-        protected uint _Price;
-        protected uint _Weight;
-        protected int _Durability;
-        struct Volume
-        {
-            public ushort _Length;
-            public ushort _Width;
-        };
-        Volume _Volume;
-    }
+        public ushort _Length { get; }
+        public ushort _Width { get; }
+    };
+    public Volume _Volume { get; }
 }
