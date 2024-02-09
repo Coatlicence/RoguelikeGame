@@ -15,8 +15,8 @@ public abstract class Item : MonoBehaviour
     public int _Durability { get; }
     public struct Volume
     {
-        public ushort _Length { get; }
         public ushort _Width { get; }
+        public ushort _Height { get; }
     };
     public Volume _Volume { get; }
 }
