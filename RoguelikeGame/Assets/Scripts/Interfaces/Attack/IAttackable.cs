@@ -6,58 +6,58 @@ using UnityEngine;
 
 public class IAttackable : MonoBehaviour
 {
-    [SerializeField]
-    Weapon weapon;
+    //[SerializeField]
+    //Weapon weapon;
 
     [SerializeField]
     Collider PlayerCollider;
 
     public void Attack(float attackDirection)
     {
-        if (weapon == null) return;
+        //if (weapon == null) return;
 
-        BoxCollider collider = weapon.GetComponent<BoxCollider>();
+        //BoxCollider collider = weapon.GetComponent<BoxCollider>();
 
-        if (!collider)
-            throw new System.Exception("Weapon Doesnt have BoxCollider");
+        //if (!collider)
+        //    throw new System.Exception("Weapon Doesnt have BoxCollider");
 
-        Vector3 scale = new Vector3
-                            (
-                            collider.size.x * weapon.transform.localScale.x,
-                            collider.size.y * weapon.transform.localScale.y,
-                            collider.size.z * weapon.transform.localScale.z
-                            );
+        //Vector3 scale = new Vector3
+        //                    (
+        //                    collider.size.x * weapon.transform.localScale.x,
+        //                    collider.size.y * weapon.transform.localScale.y,
+        //                    collider.size.z * weapon.transform.localScale.z
+        //                    );
 
-        Collider[] objects = Physics.OverlapBox(weapon.transform.position, scale, weapon.transform.rotation);
+        //Collider[] objects = Physics.OverlapBox(weapon.transform.position, scale, weapon.transform.rotation);
 
-        
 
-        foreach (Collider obj in objects)
-        {
-            if (obj == PlayerCollider) continue;
 
-            IDamagable damagableobj = obj.GetComponent<IDamagable>();
+        //foreach (Collider obj in objects)
+        //{
+        //    if (obj == PlayerCollider) continue;
 
-            if (damagableobj != null) damagableobj.TakeDamage(weapon.Damage);
-        }
+        //    IDamagable damagableobj = obj.GetComponent<IDamagable>();
+
+        //    if (damagableobj != null) damagableobj.TakeDamage(weapon.Damage);
+        //}
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        //Gizmos.color = Color.red;
 
-        BoxCollider collider = weapon.GetComponent<BoxCollider>();
+        //BoxCollider collider = weapon.GetComponent<BoxCollider>();
 
-        if (!collider)
-            throw new System.Exception("Weapon Doesnt have BoxCollider");
+        //if (!collider)
+        //    throw new System.Exception("Weapon Doesnt have BoxCollider");
 
-        Vector3 scale = new Vector3
-                            ( 
-                            collider.size.x * weapon.transform.localScale.x,
-                            collider.size.y * weapon.transform.localScale.y,
-                            collider.size.z * weapon.transform.localScale.z 
-                            );
+        //Vector3 scale = new Vector3
+        //                    (
+        //                    collider.size.x * weapon.transform.localScale.x,
+        //                    collider.size.y * weapon.transform.localScale.y,
+        //                    collider.size.z * weapon.transform.localScale.z
+        //                    );
 
-        Gizmos.DrawWireCube(weapon.transform.position, scale);
+        //Gizmos.DrawWireCube(weapon.transform.position, scale);
     }
 }
