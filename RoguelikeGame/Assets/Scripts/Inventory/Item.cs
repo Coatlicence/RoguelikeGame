@@ -9,16 +9,15 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    //protected int _Id;
-    protected string _Name;
-    protected uint _Price;
-    protected uint _Weight;
-    protected int _Durability;
-    protected int _DurabilityMax;
-    struct Volume
+    public string _Name { get; }
+    public uint _Price { get; }
+    public uint _Weight { get; }
+    public int _Durability { get; }
+    protected int _DurabilityMax;{ get; }
+    public struct Volume
     {
-        public ushort _Length;
-        public ushort _Width;
+        public ushort _Width { get; }
+        public ushort _Height { get; }
     };
-    Volume _Volume;
+    public Volume _Volume { get; }
 }

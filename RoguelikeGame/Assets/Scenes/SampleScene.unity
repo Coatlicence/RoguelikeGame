@@ -220,7 +220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2635077227307274502, guid: 7f24180731fd8e14d8f5face4a24f7f1, type: 3}
       propertyPath: DashPower
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2635077227307274502, guid: 7f24180731fd8e14d8f5face4a24f7f1, type: 3}
       propertyPath: DashingTime
