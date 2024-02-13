@@ -66,4 +66,16 @@ public class Weapon : Item
         return UnityEngine.Random.Range(_MinDamage, _MaxDamage)* _Durability / _DurabilityMax;
     }
 
+    //свойство, отражающее отбрасывание оружия при атаке оружия
+    [SerializeField]
+    protected int _Knockback;
+
+    //метод для получения значения отбрасывания при атаке оружия
+    public int GetKnockback() { return _Knockback; }
+
+    public void SetKnockback(int value)
+    {
+        if (value >= 0) _Knockback = value;
+        else Console.WriteLine("Incorrect Knockback");
+    }
 }
