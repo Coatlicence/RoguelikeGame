@@ -12,8 +12,16 @@ public class IAttackable : MonoBehaviour
     [SerializeField]
     Collider PlayerCollider;
 
-    public void Attack(float attackDirection)
+    [SerializeField]
+    public Weapon FirstWeapon;
+
+    [SerializeField]
+    public Weapon SecondWeapon;
+
+    
+    public void Attack()
     {
+
         //if (weapon == null) return;
 
         //BoxCollider collider = weapon.GetComponent<BoxCollider>();

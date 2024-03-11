@@ -14,7 +14,10 @@ public class _PlayerController : StandartController
     protected void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            Attack();
+            attackable.FirstWeapon.FirstAttack.Attack();
+
+        if (Input.GetMouseButtonDown(1))
+            attackable.SecondWeapon.SecondAttack.Attack();
 
         if (Input.GetKeyDown(KeyCode.Space))
             Dash();
@@ -33,7 +36,7 @@ public class _PlayerController : StandartController
     protected override void Attack()
     {
         if (attackable != null)
-            attackable.Attack(0);
+            attackable.Attack();
     }
 
     protected override void Dash()
