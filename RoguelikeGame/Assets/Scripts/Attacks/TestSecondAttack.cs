@@ -7,6 +7,18 @@ public class TestSecondAttack : BaseAttack
 {
     public override void Attack()
     {
-        Debug.Log("Second attack success");
+        var colls = Physics.OverlapBox(gameObject.transform.position, transform.localScale / 2);
+
+        foreach (var element in colls)
+        {
+            if (element.TryGetComponent<IDamagable>(out IDamagable damagable))
+            {
+                damagable.TakeDamage(20);
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, transform.localScale);
     }
 }

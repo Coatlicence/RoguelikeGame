@@ -8,7 +8,6 @@ public class _PlayerController : StandartController
     {
         if (movable != null)
             Move();
-
     }
 
     protected void Update()
