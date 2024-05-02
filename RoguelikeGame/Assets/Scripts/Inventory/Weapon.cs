@@ -11,8 +11,6 @@ public class Weapon : Item
     [SerializeField]
     public BaseAttack SecondAttack;
 
-
-
     //свойство отражающее минимальный урон который может нанести это оружее
     [SerializeField]
     protected int _MinDamage;
