@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TestFirstAttack : BaseAttack
 {
-    public override void Attack()
-    {
-        Debug.Log("First attack success");
-    }
+    //public override void Attack()
+    //{
+    //    Debug.Log("First attack success");
+    //}
 }
