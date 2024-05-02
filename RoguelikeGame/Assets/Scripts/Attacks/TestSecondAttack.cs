@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TestSecondAttack : BaseAttack
 {
-    public override void Attack()
-    {
-        Debug.Log("Second attack success");
-    }
+    //public override void Attack()
+    //{
+    //    Debug.Log("Second attack success");
+    //}
 }
