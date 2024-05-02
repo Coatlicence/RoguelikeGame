@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangeWeapon : Weapon
@@ -70,5 +71,21 @@ public class RangeWeapon : Weapon
 
     //метод для установки типа боеприпасов оружия
     public void SetAmmoType(Ammo value) { _AmmoType = value; }
+    RangeWeapon()
+    {
+        _NumOfAmmo = 0;
+        _MaxAmmo = 0;
+        _ReloadTime = 0;
+        _Spread = 0;
+        _AmmoType = null;
+    }
+    RangeWeapon(int numOfAmmo, int maxAmmo, float reloadTime, int spread, Ammo ammoType)
+    {
+        _NumOfAmmo = numOfAmmo;
+        _MaxAmmo = maxAmmo;
+        _ReloadTime = reloadTime;
+        _Spread = spread;
+        _AmmoType = ammoType;
+    }
 
 }
