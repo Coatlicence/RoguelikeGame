@@ -14,10 +14,10 @@ public class _PlayerController : StandartController
     protected void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            attackable.FirstWeapon.FirstAttack.Attack();
+            //attackable.FirstWeapon.FirstAttack.Attack();
 
         if (Input.GetMouseButtonDown(1))
-            attackable.SecondWeapon.SecondAttack.Attack();
+            //attackable.SecondWeapon.SecondAttack.Attack();
 
         if (Input.GetKeyDown(KeyCode.Space))
             Dash();
