@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class StandartController : MonoBehaviour
 {
+    [SerializeField] protected float _InteractionRadius = 4f;
+
     [SerializeField] protected Movable movable;
     [SerializeField] protected IAttackable attackable;
     [SerializeField] protected Dashable dashable;
@@ -19,4 +21,16 @@ public abstract class StandartController : MonoBehaviour
     protected abstract void Move();
     protected abstract void Attack();
     protected abstract void Dash();
+
+    protected void Interact()
+    {
+        var colliders = Physics.OverlapSphere(transform.position, _InteractionRadius);
+        
+        foreach (var collider in colliders)       
+            if (collider.TryGetComponent<IInteractable>(out var interactable))
+            {
+                interactable.Interact(this);
+                break;
+            }
+    }
 }
