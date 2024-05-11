@@ -37,11 +37,12 @@ public class _PlayerController : StandartController
     {
         _CurrentFocus = focus;
 
-        MOUSE0 = null;
-        SPACE = null;
-        E = null;
-        I = null;
-        WASD = null;
+        MOUSE_RIGHT = null;
+        MOUSE_LEFT  = null;
+        SPACE       = null;
+        WASD        = null;
+        E           = null;
+        I           = null;
 
         switch (focus)
         {
@@ -49,30 +50,26 @@ public class _PlayerController : StandartController
                 break;
 
             case Focus.GAME:
-                MOUSE0 = Attack;
-                SPACE = Dash;
-                E = Interact;
-                I = OpenInventory;
-                WASD = Move;
+                MOUSE_RIGHT = AttackRight;
+                MOUSE_LEFT  = AttackLeft;
+                SPACE       = Dash;
+                WASD        = Move;
+                E           = Interact;
+                I           = OpenInventory;
                 break;
 
             case Focus.INVENTORY:
-                SPACE = ThrowItem;
-                I = OpenInventory;
-                WASD = NavigateByInventoryMenu;
+                WASD    = NavigateByInventoryMenu;
+                SPACE   = ThrowItem;
+                I       = OpenInventory;
                 break;
         }
     }
 
     protected void FixedUpdate()
     {
-<<<<<<< Updated upstream
-        if (movable != null)
-            Move();
-=======
         if (_CurrentFocus == Focus.GAME)
             WASD?.Invoke();
->>>>>>> Stashed changes
     }
 
     [SerializeField] GameObject obj;
@@ -80,14 +77,10 @@ public class _PlayerController : StandartController
     protected void Update()
     {
         if (Input.GetMouseButtonDown(0))
-<<<<<<< Updated upstream
-            attackable.FirstWeapon.FirstAttack.Attack();
+            MOUSE_LEFT?.Invoke();
 
         if (Input.GetMouseButtonDown(1))
-            attackable.SecondWeapon.SecondAttack.Attack();
-=======
-            MOUSE0?.Invoke();
->>>>>>> Stashed changes
+            MOUSE_RIGHT?.Invoke();
 
         if (Input.GetKeyDown(KeyCode.Space))
             SPACE?.Invoke();
@@ -103,7 +96,8 @@ public class _PlayerController : StandartController
     }
 
     private delegate void ControllerMethod();
-    ControllerMethod MOUSE0;
+    ControllerMethod MOUSE_LEFT;
+    ControllerMethod MOUSE_RIGHT;
     ControllerMethod SPACE;
     ControllerMethod E;
     ControllerMethod I;
@@ -119,10 +113,16 @@ public class _PlayerController : StandartController
         movable.Move(x, z);
     }
 
-    protected override void Attack()
+    protected override void AttackLeft()
     {
-        if (attackable != null)
-            attackable.Attack();
+        if (attackable)
+            attackable.FirstWeapon.FirstAttack.Attack();
+    }
+
+    protected override void AttackRight()
+    {
+        if (attackable)
+            attackable.SecondWeapon.SecondAttack.Attack();
     }
 
     protected override void Dash()
@@ -190,29 +190,5 @@ public class _PlayerController : StandartController
             if (it._Item)
                 inv._ChoosedItem = it._Item;
         }
-
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //   Gizmos.DrawSphere(transform.position, _InteractionRadius);
-    //}
-
-    // not work -------------------------------------------------------------
-    /*
-    private void GetFirstInteractableObject()
-    {
-        Physics.OverlapSphereNonAlloc(transform.position, InteractionRadius, Colliders);
-
-        foreach (var collider in Colliders)
-            if (collider && collider.TryGetComponent<IInteractable>(out var interactable))
-            {
-                Debug.Log("press E to Interact with " + interactable.name);
-                Array.Clear(Colliders, 0, Colliders.Length);
-                return;
-            }
-
-        Array.Clear(Colliders, 0, Colliders.Length);
-    }
-    */
 }

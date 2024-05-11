@@ -19,7 +19,8 @@ public abstract class StandartController : MonoBehaviour
     }
 
     protected abstract void Move();
-    protected abstract void Attack();
+    protected abstract void AttackLeft();
+    protected abstract void AttackRight();
     protected abstract void Dash();
 
     protected void Interact()
