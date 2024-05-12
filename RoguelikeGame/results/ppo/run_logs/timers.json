@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1712493876",
+        "python_version": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\nojda\\Documents\\Unity Projects\\RoguelikeGame\\RoguelikeGame\\venv\\Scripts\\mlagents-learn",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.0+cpu",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1712493915"
+    },
+    "total": 39.3082474,
+    "count": 1,
+    "self": 0.008537099999998077,
+    "children": {
+        "run_training.setup": {
+            "total": 0.1328452999999996,
+            "count": 1,
+            "self": 0.1328452999999996
+        },
+        "TrainerController.start_learning": {
+            "total": 39.166865,
+            "count": 1,
+            "self": 0.0004939000000092619,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 39.166359299999996,
+                    "count": 1,
+                    "self": 39.166359299999996
+                },
+                "trainer_threads": {
+                    "total": 1.0999999986438525e-06,
+                    "count": 1,
+                    "self": 1.0999999986438525e-06
+                },
+                "TrainerController._save_models": {
+                    "total": 1.069999999714355e-05,
+                    "count": 1,
+                    "self": 1.069999999714355e-05
+                }
+            }
+        }
+    }
+}

@@ -6,13 +6,24 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Item : MonoBehaviour
 {
-    //protected int _Id;
-    protected string _Name;
-    protected uint _Price;
-    protected uint _Weight;
-    protected int _Durability;
-    protected int _DurabilityMax;
+    // Имя предмета
+    public string _Name;
+
+    // Описание
+    [Multiline]
+    public string _Lore;
+
+    // Стандартная ценность предмета (может варьироваться от купца к купцу)
+    // Цена указана как для продажи, так и для покупки
+    [SerializeField] protected uint _Price;
+
+    [SerializeField] protected int _Durability;
+    [SerializeField] protected int _DurabilityMax;
+
+    public Sprite Icon;
+
 }
