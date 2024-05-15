@@ -107,21 +107,24 @@ public class _PlayerController : StandartController
     /// FOCUS GAME
     protected override void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
+        if (movable)
+        {
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
 
-        movable.Move(x, z);
+            movable.Move(x, z);
+        }
     }
 
     protected override void AttackLeft()
     {
-        if (attackable)
+        if (attackable && attackable.FirstWeapon)
             attackable.FirstWeapon.FirstAttack.Attack();
     }
 
     protected override void AttackRight()
     {
-        if (attackable)
+        if (attackable && attackable.SecondWeapon)
             attackable.SecondWeapon.SecondAttack.Attack();
     }
 

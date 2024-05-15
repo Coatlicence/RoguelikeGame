@@ -10,12 +10,11 @@ public abstract class StandartController : MonoBehaviour
     [SerializeField] protected IAttackable attackable;
     [SerializeField] protected Dashable dashable;
 
-
-
     private void Awake()
     {
-        movable = GetComponent<Movable>();
-        attackable = GetComponent<IAttackable>();
+        movable     = GetComponent<Movable>();
+        attackable  = GetComponent<IAttackable>();
+        dashable    = GetComponent<Dashable>();
     }
 
     protected abstract void Move();
