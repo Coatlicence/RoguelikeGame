@@ -30,7 +30,6 @@ public class Movable : MonoBehaviour
             return;
         }
 
-        body.velocity = new Vector3(inputHorizontal - inputVertical, 0, inputHorizontal + inputVertical)
-                        * Speed * Time.fixedDeltaTime;
+        body.velocity = Speed * Time.fixedDeltaTime * new Vector3(inputHorizontal - inputVertical, 0, inputHorizontal + inputVertical);
     }
 }

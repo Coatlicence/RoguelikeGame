@@ -1,91 +1,280 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
 
-public abstract class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
-    [SerializeField] protected uint _Size = 20;
-     
-    [SerializeField] protected Dictionary<Item, uint> _Items;
+    [SerializeField] uint _MaxItemCount = 10;
 
-    private void Awake()
+    [Header("Container of Slot objects")]
+    [SerializeField] GameObject _Items;
+
+    [Header("SlotPrefab")]
+    [SerializeField] GameObject _ItemSlotPrefab;
+
+    private Item _choosedItem;
+
+    public Item _ChoosedItem
     {
-        _Items = new Dictionary<Item, uint>();
+        get
+        {
+            return _choosedItem;
+        }
+        set
+         {
+            if (!value)
+            {
+                _choosedItem = null;
+                InventoryUIManager.GetInstance().UpdateItemLore(null);
+                return;
+            }
+
+            if (!HasItem(value))
+            {
+                _choosedItem = null;
+                InventoryUIManager.GetInstance().UpdateItemLore(null);
+                return;
+            }
+
+            if (_choosedItem && _choosedItem.transform.parent.TryGetComponent<Image>(out var oldimage))
+            {
+                oldimage.color = new(.3f, .3f, .3f);
+            }
+
+            _choosedItem = value;
+
+            if (_choosedItem.transform.parent.TryGetComponent<Image>(out var image))
+            {
+                image.color = new(.7f, .5f, .3f);
+            }
+
+            InventoryUIManager.GetInstance().UpdateItemLore(_choosedItem);
+        }
     }
 
-    public bool Take(Item item, uint count)
+    public uint GetMaxItemCount() { return _MaxItemCount; }
+
+    public GameObject GetItems() { return _Items; }
+
+    public bool Add(GameObject item)
+    {
+        if (item.TryGetComponent<Item>(out var itemComponent))
+        {
+            return Add(itemComponent);
+        }
+
+        return false;
+    }
+
+    public bool Add(Item item)
     {
         if (item == null)
-            return false;    
-            
-        if (_Items.Count == _Size)
             return false;
 
-        
-        if (_Items.ContainsKey(item))
-            _Items[item] += count;
-        else
-            _Items.Add(item, count);
+        if (_Items.transform.childCount >= _MaxItemCount)
+            return false;
+
+        var slot = Instantiate(_ItemSlotPrefab).GetComponent<ItemCell>();
+
+        slot.GetComponentInParent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
+
+        slot.transform.SetParent(_Items.transform, false);
+
+        slot._Item = item;
+
+        item.transform.SetParent(slot.transform, false);
+
+        item.gameObject.SetActive(false);
+
+        slot.UpdateNameAndIcon();
+
+        var eventClick = slot.GetComponent<Button>().onClick;
+
+        eventClick.AddListener(() => { _ChoosedItem = item; });
+
+        InventoryUIManager.GetInstance().UpdateCurrentItemCount();
 
         return true;
     }
 
-    // удаляет предмет в заданном количестве, возвращает истину, 
-    public bool Remove(Item item, uint count)
+    public void Throw(Item item)
     {
-        if (item == null)
-            return false;
-
-        if (_Items.Count == 0)
-            return false;
-
-        if (!_Items.ContainsKey(item))
-            return false;
-
-        if (_Items[item] < count)
-            return false;
-
-
-        _Items[item] -= count;
-
-        if (_Items[item] == 0)
-            _Items.Remove(item);
-
-        
-
-        return true;
+        if (item) Throw(item.GetType());
     }
 
-    // Возвращает количество выбранного предмета
-    public uint Has(Item item)
+    public void Throw(Type itemType)
     {
-        if (item == null)
-            return 0;
+        var item = HasItem(itemType);
+        if (!item) 
+            return;
 
-        if (_Items.Count == 0)
-            return 0;
+        var slot = item.transform.parent.gameObject;
 
-        if (_Items.ContainsKey(item))
-            return _Items[item];
+        if (item == _ChoosedItem)
+            _ChoosedItem = null;
 
-        return 0;
+        item.transform.SetParent(null, false);
+
+        slot.transform.SetParent(null, false);
+
+        Destroy(slot);
+
+        item.gameObject.SetActive(true);
+
+        item.transform.position = transform.position;
+
+        InventoryUIManager.GetInstance().UpdateCurrentItemCount();
+
+        Iterator it = new(this);
+        _ChoosedItem = it._Item;
     }
 
-    // возвращает истину, если в инвентаре есть или больше количества выбранного элемента
-    public bool Has(Item item, uint count)
+    public Item HasItem(Type item)
     {
-        if (item == null)
-            return false;
+        for (Iterator it = new(this); it._Item != null; it++)
+        {
+            if (it._Item.GetType() == item)
+                return it._Item;
+        }
 
-        if (_Items.Count == 0)
-            return false;
-
-
-        if (_Items.ContainsKey(item) && _Items[item] >= count)
-            return true;
-        else
-            return false;
-
+        return null;
     }
+
+    public bool HasItem(Item item)
+    {
+        if (!item) return false;
+
+        for (Iterator it = new(this); it._Item != null; it++)
+        {
+            if (it._Item == item)
+                return true;
+        }
+
+        return false;
+    }
+
+}
+public class Iterator
+{
+    public Iterator(Inventory inventory)
+    {
+        Begin(inventory);
+    }
+
+    private int _Index;
+
+    private Inventory _Inventory;
+
+    public Item _Item { get; private set; }
+
+    private void GetItemInInventoryByIndex()
+    {
+        var items = _Inventory.GetItems().transform;
+
+        if (items.childCount > 0)
+        {
+            _Item = items.GetChild(_Index).GetChild(2).GetComponent<Item>();
+        }
+    }
+
+    public static Iterator operator ++(Iterator it)
+    {
+        if (!it._Inventory) 
+        { 
+            Debug.LogError("No inventory assigned to iterator"); 
+            return it; 
+        }
+
+        it._Index++;
+
+        if (it._Index >= it._Inventory.GetItems().transform.childCount) 
+            it._Index = it._Inventory.GetItems().transform.childCount - 1;
+
+        it.GetItemInInventoryByIndex();
+        return it;
+    }
+
+    public static Iterator operator --(Iterator it)
+    {
+        if (!it._Inventory)
+        {
+            Debug.LogError("No inventory assigned to iterator");
+            return it;
+        }
+
+        it._Index--;
+
+        if (it._Index < 0) it._Index = 0;
+
+        it.GetItemInInventoryByIndex();
+        return it;
+    }
+
+    public void SetInventory(Inventory inventory)
+    {
+        _Inventory = inventory;
+    }
+
+    public void Begin()
+    {
+        _Index = 0;
+        GetItemInInventoryByIndex();
+    }
+
+    public void Begin(Inventory inventory)
+    {
+        SetInventory(inventory);
+        Begin();
+    }
+
+    public void End()
+    {
+        _Index = _Inventory.GetItems().transform.childCount - 1;
+        GetItemInInventoryByIndex();
+    }
+
+    public void End(Inventory inventory)
+    {
+        SetInventory(inventory);
+        End();
+    }
+
+    /// <summary>
+    /// Tris to find item in choosed inventory, and sets _Index to actual
+    /// In fail _Item will be null
+    /// </summary>
+    /// <param name="item"></param>
+    public void SetItem(Type item)
+    {
+        for (Iterator it = new(_Inventory); it._Item != null; it++)
+        {
+            if (item == it._Item.GetType())
+            {
+                _Index = it._Index;
+                return;
+            }
+        }
+
+        _Item = null;
+    }
+
+    public void SetItem(Item item)
+    {
+        for (Iterator it = new(_Inventory); it._Item != null; it++)
+        {
+            if (item == it._Item)
+            {
+                _Index = it._Index;
+                return;
+            }
+        }
+
+        _Item = null;
+    }
+
 }
