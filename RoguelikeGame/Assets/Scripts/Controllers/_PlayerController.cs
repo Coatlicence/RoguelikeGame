@@ -1,12 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
 
 public class _PlayerController : StandartController
 {
+    double _timer;
+    bool TimerOn;
+    [SerializeField]
+    public GameObject weaponFactory;
+    private void Start()
+    {
+        _timer = 0;
+        TimerOn = false;
+        WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        attackable.FirstWeapon = (Weapon)factory.CreateRandomWeapon(0, Vector3.zero, Quaternion.identity).GetComponent<MeleeWeapon>();
+    }
     public enum Focus
     {
         EMPTY = 0,
@@ -73,12 +85,27 @@ public class _PlayerController : StandartController
     }
 
     [SerializeField] GameObject obj;
-
     protected void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        Timer();
+        //TimerOn = Input.GetKeyDown(KeyCode.Mouse0)?true: TimerOn;
+        if (Input.GetMouseButton(0))
             MOUSE_LEFT?.Invoke();
-
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            if(attackable.FirstWeapon.FirstAttack.ReleaseHandler!= null)
+            {
+                Vector3 tm = GetComponentInParent<Transform>().localPosition;
+                Quaternion q = GetComponentInParent<Transform>().rotation;
+                int tmp = 0;
+                attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
+            }
+            _timer = 0;
+            TimerOn = false;
+            cuat = 0;
+            
+        }
+        if()
         if (Input.GetMouseButtonDown(1))
             MOUSE_RIGHT?.Invoke();
 
@@ -112,17 +139,63 @@ public class _PlayerController : StandartController
 
         movable.Move(x, z);
     }
+    int cuat = 0;
 
     protected override void AttackLeft()
     {
+
         if (attackable)
-            attackable.FirstWeapon.FirstAttack.Attack();
+        {
+                TimerOn = true;
+            if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)
+            {
+                Vector3 tm = GetComponentInParent<Transform>().localPosition;
+                Quaternion q = GetComponentInParent<Transform>().rotation;
+                attackable.FirstWeapon.FirstAttack.PressHandler.Do(_timer, ref cuat, tm, q);
+            }
+            else
+            {
+                attackable.FirstWeapon.FirstAttack.HoldHandler.Do(_timer,ref cuat);
+            }
+
+
+
+
+
+            //if (Input.GetKeyDown(KeyCode.Mouse0)){
+            //    //if(_timer)
+            //    TimerOn = true;
+            //}
+            //if (Input.GetKeyUp(KeyCode.Mouse0)) 
+            //{
+            //    Vector3 tm = GetComponentInParent<Transform>().localPosition;
+            //    Quaternion q = GetComponentInParent<Transform>().rotation;
+            //    attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(tm,q);
+            //    TimerOn = false;
+            //}
+            //Bounds tm = GetComponentInParent<MeshRenderer>().bounds;
+            //Vector3 tm = GetComponentInParent<Transform>().localPosition;
+            //Quaternion q = GetComponentInParent<Transform>().rotation;
+            //attackable.FirstWeapon.FirstAttack.PressHandler.Attack(tm,q);
+        }
+
     }
 
+    private void Timer()
+    {
+        _timer = TimerOn ? _timer + Time.deltaTime : 0;
+    }
+    public void OnDrawGizmos()
+    {
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Vector3 tm = GetComponentInParent<Transform>().localPosition;
+        //Bounds tm = GetComponentInParent<MeshRenderer>().bounds;
+        Gizmos.DrawWireCube(new Vector3(tm.x, tm.y, tm.z), new Vector3(1, 1,2+ attackable.FirstWeapon.GetRange()));
+    }
     protected override void AttackRight()
     {
-        if (attackable)
-            attackable.SecondWeapon.SecondAttack.Attack();
+        //if (attackable)
+        //    attackable.SecondWeapon.SecondAttack.Attack();
     }
 
     protected override void Dash()

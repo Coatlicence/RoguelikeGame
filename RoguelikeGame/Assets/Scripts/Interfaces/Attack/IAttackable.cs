@@ -18,7 +18,12 @@ public class IAttackable : MonoBehaviour
     [SerializeField]
     public Weapon SecondWeapon;
 
-    
+
+
+    private void Start()
+    {
+
+    }
     public void Attack()
     {
 

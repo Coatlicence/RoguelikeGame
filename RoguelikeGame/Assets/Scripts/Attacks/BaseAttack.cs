@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseAttack 
+public class BaseAttack 
 {
-    protected Command PressHandler;
-    protected Command HoldHandler;
-    protected Command ReleaseHandler;
+    public Command PressHandler;
+    public Command HoldHandler;
+    public Command ReleaseHandler;
 }
 
 

@@ -12,17 +12,62 @@ public abstract class Item : MonoBehaviour
 {
     // Имя предмета
     public string _Name;
+    public string GetName()
+    {
+        return _Name;
+    }
+    public void SetName(string value)
+    {
+        if (value != null) { _Name = value; }
+        else Console.WriteLine("Incorrect Name");
+    }
 
     // Описание
     [Multiline]
     public string _Lore;
+    public string GetLore()
+    {
+        return _Lore;
+    }
+    public void SetLore(string value)
+    {
+        if (value != null) { _Lore = value; }
+        else Console.WriteLine("Incorrect Lore");
+    }
 
     // Стандартная ценность предмета (может варьироваться от купца к купцу)
     // Цена указана как для продажи, так и для покупки
     [SerializeField] protected uint _Price;
+    public uint GetPrice()
+    {
+        return _Price;
+    }
+    public void SetPrice(uint value)
+    {
+        if (value >=0) { _Price = value; }
+        else Console.WriteLine("Incorrect Price");
+    }
 
     [SerializeField] protected int _Durability;
+    public int GetDurability()
+    {
+        return _Durability;
+    }
+    public void SetDurability(int value)
+    {
+        if (value >= 0&&value<_DurabilityMax) { _Durability = value; }
+        else Console.WriteLine("Incorrect Durability");
+    }
     [SerializeField] protected int _DurabilityMax;
+    public int GetDurabilityMax()
+    {
+        return _Durability;
+    }
+    public void SetDurabilityMax(int value)
+    {
+        if (value >= _Durability) { _DurabilityMax = value; }
+        else Console.WriteLine("Incorrect Durability");
+    }
 
     public Sprite Icon;
 

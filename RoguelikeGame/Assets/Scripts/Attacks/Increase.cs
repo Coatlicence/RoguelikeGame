@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Increase : Command
 {
-    DoDamage doDamage;
-    int NumTolnc;
+    public DoDamage doDamage;
+    public int NumTolnc;
+    public float _stepIUp;
+
+    public override void Do(double _timer,ref int cuat)
+    {
+        if (_timer/(cuat*_stepIUp) > 1)
+        {
+            cuat++;
+            if(doDamage._upgrate<NumTolnc&&cuat>0)
+                doDamage._upgrate++;
+        }
+    }
 }
