@@ -1,41 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 
 public class WorldGenerator : MonoBehaviour
 {
-    // тест
-    [SerializeField] LocationType LocationType;
+    //public Dictionary<Tuple<LocationType, RoomType>,>
 
-    [SerializeField] int MaxLengthOfLocation;
+    // 
+    LocationType loc = LocationType.Seriantatum;
 
-    [SerializeField] int SpreadOfLength;
+    // Максимальная длина 1 локации для прохождения. Всего комнат в игре
+    // (Максимальное кол-во локаций) * MaxLengthOfLocation
+    [SerializeField] int _MaxLengthOfLocation;
 
-    int CurrentLengthOfLocation;
+    // Разброс по кол-ву комнат на 1 локацию
+    [SerializeField] int _SpreadOfLength;
+
+    // Данная переменная проверяет, когда нужно переходить на следущую локацию
+    int _CurrentLengthOfLocation;
 
     private void Awake()
     {
-        CurrentLengthOfLocation = MaxLengthOfLocation + (int)Random.Range(-SpreadOfLength, SpreadOfLength);
+        //_CurrentLengthOfLocation = _MaxLengthOfLocation + UnityEngine.Random.Range(-_SpreadOfLength, _SpreadOfLength);
+
+        //Debug.Log(loc);
+        //loc++;
+        //Debug.Log(loc);
     }
 
     public bool GenerateRoom(RoomType type) 
     {
-        if (CurrentLengthOfLocation < 0)
-        {
-            NextLocation();
-            return false;
-        }
-            
-                
-        return true;
+        return false;
+
+        //SceneManager.LoadScene
     }
 
-    private void NextLocation()
-    {
-        LocationType++;
-
-        CurrentLengthOfLocation = MaxLengthOfLocation + (int)Random.Range(-SpreadOfLength, SpreadOfLength);
-    }
 }

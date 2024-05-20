@@ -22,6 +22,11 @@ public class _PlayerController : StandartController
     [Tooltip("Indicates current key bindings, which will invoke during game")]
     public Focus _CurrentFocus { get; private set; }
 
+    // For animator
+    private float RunScaler = 0f;
+
+    private Quaternion _CurrentRotation = Quaternion.identity;
+
     private void Awake()
     {
         if (_Instance != null && _Instance != this)
@@ -72,8 +77,6 @@ public class _PlayerController : StandartController
             WASD?.Invoke();
     }
 
-    [SerializeField] GameObject obj;
-
     protected void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -112,14 +115,47 @@ public class _PlayerController : StandartController
             float x = Input.GetAxisRaw("Horizontal");
             float z = Input.GetAxisRaw("Vertical");
 
+            bool isMoving = x != 0 || z != 0;
+
             movable.Move(x, z);
+
+            if (animator)
+            {
+                float target = Convert.ToSingle(isMoving);
+
+                RunScaler = Mathf.Lerp(RunScaler, target, 0.3f);
+
+                animator.SetFloat("Run", RunScaler);
+            }
+
+            if (isMoving)
+            {
+                float angleRad = Mathf.Atan2(x, z);
+
+                float angleDeg = angleRad * Mathf.Rad2Deg - 45;
+
+                var targetRotation = Quaternion.Euler(0, angleDeg, 0);
+
+                _CurrentRotation = Quaternion.Lerp(_CurrentRotation, targetRotation, 0.3f);
+
+                transform.GetChild(0).transform.rotation = _CurrentRotation;
+            }
         }
     }
 
     protected override void AttackLeft()
     {
-        if (attackable && attackable.FirstWeapon)
-            attackable.FirstWeapon.FirstAttack.Attack();
+        //if (attackable && attackable.FirstWeapon)
+            //attackable.FirstWeapon.FirstAttack.Attack();
+
+        if (animator)
+        {
+            //var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //animator.runtimeAnimatorController.animationClips[1];
+
+            animator.SetTrigger("Attack");
+        }
     }
 
     protected override void AttackRight()
@@ -131,7 +167,12 @@ public class _PlayerController : StandartController
     protected override void Dash()
     {
         if (dashable)
+        {
+            animator.SetFloat("Run", 0f);
+            animator.SetTrigger("Dash");
+            
             StartCoroutine(dashable.Dash());
+        }
     }
 
     private void OpenInventory()
