@@ -9,6 +9,11 @@ public class CloneOneHP : BaseClone
     [SerializeField]
     IDamagable _Damagable;
 
+    private void Awake()
+    {
+        _Damagable = GetComponent<IDamagable>();
+    }
+
     public override GameObject Clone()
     {
         if (_Damagable.GetHealth() <= 1) 

@@ -12,19 +12,19 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class WeaponFactory : MonoBehaviour
 {
-    //Хранение частей мечей
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public List<GameObject> guarts;
     public List<GameObject> blades;
     public List<GameObject> hilts;
     public List<string> NamesOfSwords;
 
-    //Хранение частей копий
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     public List<GameObject> pommels;
     public List<GameObject> spearheads;
     public List<GameObject> shafts;
     public List<string> NamesOfSpears;
 
-    //Хранение частей топоров
+    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public List<GameObject> handles;
     public List<GameObject> counterweights;
     public List<GameObject> axeBlades;
@@ -38,22 +38,22 @@ public class WeaponFactory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Загрузка моделей для генерации оружий
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
-        //пустая модель
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         empty = Resources.Load<GameObject>("empty/Empty");
         
-        //Модели для мечей
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         blades = Resources.LoadAll<GameObject>("Swords/Blades").ToList<GameObject>();
         guarts = Resources.LoadAll<GameObject>("Swords/Guarts").ToList<GameObject>();
         hilts = Resources.LoadAll<GameObject>("Swords/Hilts").ToList<GameObject>();
 
-        //Модели для копий
+        //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         pommels = Resources.LoadAll<GameObject>("Spears/Pommels").ToList<GameObject>();
         spearheads = Resources.LoadAll<GameObject>("Spears/spearhead").ToList<GameObject>();
         shafts = Resources.LoadAll<GameObject>("Spears/Shafts").ToList<GameObject>();
 
-        //Moдели для топоров
+        //MoпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         handles = Resources.LoadAll<GameObject>("Axes/handles").ToList<GameObject>();
         counterweights = Resources.LoadAll<GameObject>("Axes/counterweight").ToList<GameObject>();
         axeBlades = Resources.LoadAll<GameObject>("Axes/axeBlades").ToList<GameObject>();
@@ -61,7 +61,7 @@ public class WeaponFactory : MonoBehaviour
 
 
 
-        //Подгрузка названий мечей из файла
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         StreamReader inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Swords/namesOfSwords.txt");
         while (!inp_stm.EndOfStream)
         {
@@ -71,7 +71,7 @@ public class WeaponFactory : MonoBehaviour
         inp_stm.Close();
 
 
-        //Подгрузка названий копий из файла
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Spears/namesOfSpears.txt");
         while (!inp_stm.EndOfStream)
         {
@@ -80,7 +80,7 @@ public class WeaponFactory : MonoBehaviour
         }
         inp_stm.Close();
 
-        //Подгрузка названий топоров из файла
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Axes/namesOfAxes.txt");
         while (!inp_stm.EndOfStream)
         {
@@ -90,7 +90,7 @@ public class WeaponFactory : MonoBehaviour
         inp_stm.Close();
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Bows/namesOfBows.txt");
 
-        //Подгрузка названий луков из файла
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
@@ -113,7 +113,7 @@ public class WeaponFactory : MonoBehaviour
         GameObject model =null;
 
         int tmpDurabilityMax;
-        //В зависимости от текущей стадии разный пул оружий
+        //пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         float multiplierOfDurability;
         switch (numOfStage)
         {
@@ -331,7 +331,7 @@ public class WeaponFactory : MonoBehaviour
         return Bow;
     }
 
-    GameObject GenerateСrossbowModel(Vector3 pos)
+    GameObject GenerateCrossbowModel(Vector3 pos)
     {
         GameObject CrossBow = Instantiate(empty, pos, Quaternion.identity);
         return CrossBow;

@@ -47,7 +47,6 @@ public class AgentQDS : Agent
     /// 1D - Attack Left
     /// 2D - Attack Right
     /// 3D - Activate fully copy and divide equally hp
-    /// 4D - Activate copy with 1 hp and damage self 1 hp 
     /// </summary>
     /// <param name="actionsOut"></param>
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -77,8 +76,7 @@ public class AgentQDS : Agent
         discreteActionOut[0] = dash;
         discreteActionOut[1] = attackl;
         discreteActionOut[2] = attackr;
-        discreteActionOut[3] = 0;
-        discreteActionOut[4] = clone1;
+        discreteActionOut[3] = clone1;
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -105,7 +103,7 @@ public class AgentQDS : Agent
             Debug.Log("Attacked with 2 weapon and 2 attack");
         }
 
-        if (dact[4] > 0)
+        if (dact[3] > 0)
             clone.Clone();
     }
 }
