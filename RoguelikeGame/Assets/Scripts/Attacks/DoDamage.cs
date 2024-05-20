@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoDamage : Command
 {
-     int _upgrate = 0;
+    public int _upgrate = 0;
     public float _damageBoost;
     //float Coulddown;
     //float Knocknack;

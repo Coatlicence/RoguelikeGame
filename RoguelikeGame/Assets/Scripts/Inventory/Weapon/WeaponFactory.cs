@@ -42,8 +42,7 @@ public class WeaponFactory : MonoBehaviour
 
         //пустая модель
         empty = Resources.Load<GameObject>("empty/Empty");
-        AnimateEmpty = Resources.Load<GameObject>("empty/AnimateEmpty");
-
+        
         //Модели для мечей
         blades = Resources.LoadAll<GameObject>("Swords/Blades").ToList<GameObject>();
         guarts = Resources.LoadAll<GameObject>("Swords/Guarts").ToList<GameObject>();

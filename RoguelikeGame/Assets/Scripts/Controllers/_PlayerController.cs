@@ -88,7 +88,7 @@ public class _PlayerController : StandartController
         if (_CurrentFocus == Focus.GAME)
             WASD?.Invoke();
     }
-
+    int cuat = 0;
     protected void Update()
     {
         Timer();
@@ -109,7 +109,6 @@ public class _PlayerController : StandartController
             cuat = 0;
             
         }
-        if()
         if (Input.GetMouseButtonDown(1))
             MOUSE_RIGHT?.Invoke();
 
