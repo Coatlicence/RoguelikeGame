@@ -17,7 +17,7 @@ public class _PlayerController : StandartController
         _timer = 0;
         TimerOn = false;
         WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
-        attackable.FirstWeapon = (Weapon)factory.CreateRandomWeapon(0, Vector3.zero, Quaternion.identity).GetComponent<MeleeWeapon>();
+         factory.CreateRandomWeapon(0,new Vector3(1,4,1), Quaternion.identity).GetComponent<Weapon>();
     }
     public enum Focus
     {
@@ -100,7 +100,8 @@ public class _PlayerController : StandartController
             if(attackable.FirstWeapon.FirstAttack.ReleaseHandler!= null)
             {
                 Vector3 tm = GetComponentInParent<Transform>().localPosition;
-                Quaternion q = GetComponentInParent<Transform>().rotation;
+                //Quaternion q = GetComponentInParent<Transform>().rotation;
+                Quaternion q =transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
                 int tmp = 0;
                 attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
             }
@@ -179,7 +180,7 @@ public class _PlayerController : StandartController
             if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)
             {
                 Vector3 tm = GetComponentInParent<Transform>().localPosition;
-                Quaternion q = GetComponentInParent<Transform>().rotation;
+                Quaternion q = gameObject.transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
                 attackable.FirstWeapon.FirstAttack.PressHandler.Do(_timer, ref cuat, tm, q);
             }
             else
@@ -214,13 +215,13 @@ public class _PlayerController : StandartController
     {
         _timer = TimerOn ? _timer + Time.deltaTime : 0;
     }
-    public void OnDrawGizmos()
-    {
-        Gizmos.matrix = transform.localToWorldMatrix;
-        Vector3 tm = GetComponentInParent<Transform>().localPosition;
-        //Bounds tm = GetComponentInParent<MeshRenderer>().bounds;
-        Gizmos.DrawWireCube(new Vector3(tm.x, tm.y, tm.z), new Vector3(1, 1,2+ attackable.FirstWeapon.GetRange()));
-    }
+    //public void OnDrawGizmos()
+    //{
+    //    Gizmos.matrix = transform.localToWorldMatrix;
+    //    Vector3 tm = GetComponentInParent<Transform>().localPosition;
+    //    //Bounds tm = GetComponentInParent<MeshRenderer>().bounds;
+    //    Gizmos.DrawWireCube(new Vector3(tm.x, tm.y, tm.z), new Vector3(1, 1,2+ attackable.FirstWeapon.GetRange()));
+    //}
     protected override void AttackRight()
     {
         //if (attackable)

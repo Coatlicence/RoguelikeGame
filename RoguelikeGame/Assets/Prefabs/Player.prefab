@@ -281,7 +281,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.35
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.15
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1723,7 +1723,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.35
+  m_fontSize: 41.15
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.35
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2002,6 +2002,7 @@ MonoBehaviour:
   attackable: {fileID: 4913291591927205859}
   dashable: {fileID: 972585133279163596}
   animator: {fileID: 0}
+  weaponFactory: {fileID: 0}
 --- !u!114 &6081173856551285611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2030,6 +2031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCollider: {fileID: 0}
+  WeaponPosition: {fileID: 4589317615221611898}
   FirstWeapon: {fileID: 0}
   SecondWeapon: {fileID: 0}
 --- !u!54 &-3136900682154839545
@@ -2138,7 +2140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244236427209683124, guid: cea4d3c302708bd47b16dcb7234ec4e7, type: 3}
       propertyPath: m_fontSize
-      value: 29.8
+      value: 60.35
       objectReference: {fileID: 0}
     - target: {fileID: 2689618113524807105, guid: cea4d3c302708bd47b16dcb7234ec4e7, type: 3}
       propertyPath: m_Pivot.x

@@ -33,16 +33,17 @@ public class WeaponFactory : MonoBehaviour
 
     public List<string> NamesOfBows;
     GameObject empty;
+    GameObject emptyTrue;
     //static WeaponGenerator weaponGenerator;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //�������� ������� ��� ��������� ������
 
         //������ ������
         empty = Resources.Load<GameObject>("empty/Empty");
-        
+        emptyTrue = Resources.Load<GameObject>("empty/EmptyTrue");
         //������ ��� �����
         blades = Resources.LoadAll<GameObject>("Swords/Blades").ToList<GameObject>();
         guarts = Resources.LoadAll<GameObject>("Swords/Guarts").ToList<GameObject>();
@@ -124,17 +125,17 @@ public class WeaponFactory : MonoBehaviour
                     
                     case 0:
                         model = GenerateSwordModel(pos, quaternion);
-                        model.AddComponent<MeleeWeapon>();
+                        //model.AddComponent<Weapon>();
                         SetSwordParametr(model, Random.Range(10, 20), Random.Range(0, 9), (uint)Random.Range(0, 100), Random.Range(50, 100), multiplierOfDurability);
                         break;
                     case 1:
                         model = GenerateSpearModel(pos, quaternion);
-                        model.AddComponent<MeleeWeapon>();
+                        //model.AddComponent<Weapon>();
                         SetSpearParametr(model, Random.Range(5, 12), Random.Range(0, 4), (uint)Random.Range(0, 75), Random.Range(25, 75), multiplierOfDurability);
                         break;
                     case 2:
                         model = GenerateAxeModel(pos, quaternion);
-                        model.AddComponent<MeleeWeapon>();
+                        //model.AddComponent<Weapon>();
                         SetAxeParametr(model,Random.Range(20,30),Random.Range(20, 19), (uint)Random.Range(0, 150),Random.Range(75,200),multiplierOfDurability);
                         break;
                     case 3:
@@ -158,7 +159,7 @@ public class WeaponFactory : MonoBehaviour
         }
         return model;
     }
-    void SetBaseParametrs(ref MeleeWeapon tmpMeleeWeapon, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
+    void SetBaseParametrs(ref Weapon tmpMeleeWeapon, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
         tmpMeleeWeapon.SetMaxDamage(MaxDamage);
         tmpMeleeWeapon.SetMinDamage(MinDamage);
@@ -167,7 +168,7 @@ public class WeaponFactory : MonoBehaviour
         tmpMeleeWeapon.SetDurability(Random.Range((int)(multiplierOfDurability * (double)durabilityMax), durabilityMax));
     }
 
-    void SetHandlers(ref MeleeWeapon tmpMeleeWeapon,float sumBoost,float delayTime,int minNumsOfUpdate,int MaxNumsOfUpdate)
+    void SetHandlers(ref Weapon tmpMeleeWeapon,float sumBoost,float delayTime,int minNumsOfUpdate,int MaxNumsOfUpdate)
     {
         BaseAttack baseAttack = new BaseAttack();
         DoDamage oNPress = new DoDamage();
@@ -198,7 +199,7 @@ public class WeaponFactory : MonoBehaviour
 
     void SetSwordParametr(GameObject model, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
-        MeleeWeapon tmpMeleeWeapon = model.GetComponent<MeleeWeapon>();
+        Weapon tmpMeleeWeapon = model.GetComponent<Weapon>();
         SetBaseParametrs(ref tmpMeleeWeapon, MaxDamage, MinDamage, price, durabilityMax, multiplierOfDurability);
 
         tmpMeleeWeapon.SetModel(model);
@@ -213,7 +214,7 @@ public class WeaponFactory : MonoBehaviour
 
     void SetSpearParametr(GameObject model, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
-        MeleeWeapon tmpMeleeWeapon = model.GetComponent<MeleeWeapon>();
+        Weapon tmpMeleeWeapon = model.GetComponent<Weapon>();
         SetBaseParametrs(ref tmpMeleeWeapon, MaxDamage, MinDamage, price, durabilityMax, multiplierOfDurability);
 
         tmpMeleeWeapon.SetModel(model);
@@ -226,7 +227,7 @@ public class WeaponFactory : MonoBehaviour
     }
     void SetAxeParametr(GameObject model, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
-        MeleeWeapon tmpMeleeWeapon = model.GetComponent<MeleeWeapon>();
+        Weapon tmpMeleeWeapon = model.GetComponent< Weapon>();
         SetBaseParametrs(ref tmpMeleeWeapon, MaxDamage, MinDamage, price, durabilityMax, multiplierOfDurability);
 
         tmpMeleeWeapon.SetRange(Random.Range(1, 3));
@@ -261,8 +262,8 @@ public class WeaponFactory : MonoBehaviour
     }
     GameObject GenerateSwordModel(Vector3 pos, Quaternion quaternion)
     {
-        GameObject MainObject = Instantiate(empty, pos, quaternion);
-        GameObject Sword = Instantiate(empty, Vector3.zero, Quaternion.identity);
+        GameObject weapon = Instantiate(empty, pos, Quaternion.identity);
+        GameObject Sword = Instantiate(emptyTrue, Vector3.zero, Quaternion.identity);
         GameObject randomGuard = GetRandomPart(guarts);
         GameObject Guart = Instantiate(randomGuard, Vector3.zero, Quaternion.identity);
         WeaponBody SWBody = Guart.GetComponent<WeaponBody>();
@@ -275,16 +276,19 @@ public class WeaponFactory : MonoBehaviour
         GameObject randomHilt = GetRandomPart(hilts);
         GameObject hilt = Instantiate(randomHilt, SWBody.DownSocket.position, Quaternion.identity);
         hilt.transform.parent = Sword.transform;
+
+        Sword.transform.parent =weapon.transform;
+
         //Sword.AddComponent<MeshCompile>();
-        Sword.transform.parent = MainObject.transform;
-        MainObject.transform.rotation=new Quaternion(0,180,0,0);
-        return MainObject;
+
+
+        return weapon;
     }
 
     GameObject GenerateSpearModel(Vector3 pos, Quaternion quaternion)
     {
-        GameObject MainObject = Instantiate(empty, pos, quaternion);
-        GameObject Spear = Instantiate(empty, pos, Quaternion.identity);
+        GameObject weapon = Instantiate(empty, pos, Quaternion.identity);
+        GameObject Spear = Instantiate(emptyTrue, pos, Quaternion.identity);
         GameObject shaft = GetRandomPart(shafts);
         shaft = Instantiate(shaft,pos, Quaternion.identity);
         WeaponBody body = shaft.GetComponent<WeaponBody>();
@@ -297,13 +301,14 @@ public class WeaponFactory : MonoBehaviour
         GameObject pommel = GetRandomPart(pommels);
         pommel = Instantiate(pommel, body.DownSocket.position, Quaternion.identity);
         pommel.transform.parent = Spear.transform;
-        Spear.transform.parent = MainObject.transform;
-        MainObject.transform.rotation = new Quaternion(0, 180, 0, 0);
-        return MainObject;
+
+        Spear.transform.parent = weapon.transform;
+        return weapon;
     }
     GameObject GenerateAxeModel(Vector3 pos, Quaternion quaternion)
     {
-        GameObject MainObject = Instantiate(empty, pos, quaternion);
+        GameObject weapon = Instantiate(empty, pos, Quaternion.identity);
+
         GameObject Axe = Instantiate(empty, pos, Quaternion.identity);
         GameObject handle = GetRandomPart(handles);
         handle = Instantiate(handle,pos,Quaternion.identity);
@@ -321,9 +326,10 @@ public class WeaponFactory : MonoBehaviour
         GameObject pommel = GetRandomPart(axePommels);
         pommel = Instantiate(pommel,body.DownSocket.position, Quaternion.identity);
         pommel.transform.parent= Axe.transform;
-        Axe.transform.parent = MainObject.transform;
-        MainObject.transform.rotation = new Quaternion(0, 180, 0, 0);
-        return MainObject;
+
+        Axe.transform.parent = weapon.transform;
+
+        return weapon;
     }
     GameObject GenerateBowModel(Vector3 pos)
     {

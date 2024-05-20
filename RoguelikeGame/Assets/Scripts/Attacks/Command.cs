@@ -16,7 +16,10 @@ public abstract class Command
     {
 
     }
+    public virtual void Do(Vector3 pos, Quaternion quaternion)
+    {
 
+    }
     public virtual void Do(double _timer,ref int cuat,Vector3 pos, Quaternion quaternion)
     {
 

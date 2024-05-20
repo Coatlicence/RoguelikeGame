@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpSocket: {fileID: 1894771153489708480}
   DownSocket: {fileID: 702219356006433152}
+  UpSocketRight: {fileID: 0}
 --- !u!1 &4556261410075489128
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6415714561860181980}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

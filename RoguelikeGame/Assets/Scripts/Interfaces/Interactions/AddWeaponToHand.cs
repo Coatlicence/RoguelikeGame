@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Weapon))]
@@ -17,7 +18,7 @@ public class AddWeaponToHand : IInteractable
         //weapon.transform.position = Vector3.zero;
 
         var at = activator.GetComponent<IAttackable>();
-
+        
 
 
         at.SetFirstWeapon(weapon);

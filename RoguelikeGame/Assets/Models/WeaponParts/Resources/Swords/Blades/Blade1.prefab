@@ -87,6 +87,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 8184801828580966791, guid: 8ece42f08f13adf44a4976fdfb8c715c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ece42f08f13adf44a4976fdfb8c715c, type: 3}
 --- !u!4 &434208433377186004 stripped

@@ -27,14 +27,40 @@ public class AgentQDS : Agent
 
     public bool block = false;
 
+    public delegate void SetParametrs();
+    public delegate void AtackLeft(Vector3 pos, Quaternion quaternion);
+    public delegate void AtackRight(Vector3 pos, Quaternion quaternion);
+    public delegate Coroutine Dash(IEnumerator enumerator);
+    public delegate GameObject Clone();
 
+    AtackLeft atackLeft;
+    Dash dash;
+    Clone _clone;
+    [SerializeField]
+    public GameObject weaponFactory;
     private void Start()
     {
+        WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        
+
+
         damagable   = GetComponent<IDamagable>();
         movable     = GetComponent<Movable>();
         dashable    = GetComponent<Dashable>();
         attackable  = GetComponent<IAttackable>();
         clone       = GetComponent<CloneOneHP>();
+        attackable.FirstWeapon = factory.CreateRandomWeapon(0, new Vector3(100, 100, 100), Quaternion.identity).GetComponent<Weapon>();
+        if (attackable.FirstWeapon.FirstAttack.PressHandler == null)
+        {
+            atackLeft = new AtackLeft(attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do);
+        }
+        else
+        {
+            atackLeft = new AtackLeft(attackable.FirstWeapon.FirstAttack.PressHandler.Do);
+        }
+        dash = new Dash(StartCoroutine);
+        _clone = new Clone(clone.Clone);
+        //atackLeft = new AtackLeft( attackable.FirstWeapon.FirstAttack.PressHandler==null ? attackable.FirstWeapon.FirstAttack.PressHandler.Do: attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do);
     }
 
     /// <summary>
@@ -79,6 +105,12 @@ public class AgentQDS : Agent
         discreteActionOut[3] = clone1;
     }
 
+    public void OnHalf()
+    {
+        CloneWithFullHealf clone = GetComponent<CloneWithFullHealf>();
+        _clone = new Clone(clone.Clone);
+    }
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         var cact = actions.ContinuousActions;
@@ -89,21 +121,28 @@ public class AgentQDS : Agent
         var dact = actions.DiscreteActions;
 
         if (dact[0] > 0)
-            StartCoroutine(dashable.Dash());
+            dash(dashable.Dash());
 
         if (dact[1] > 0)
         {
+            Vector3 tm = GetComponentInParent<Transform>().localPosition;
+            Quaternion q = gameObject.transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+            atackLeft(tm, q);
             //attackable.FirstWeapon.FirstAttack.Attack();
             Debug.Log("Attacked with 1 weapon and 1 attack");
         }
 
         if (dact[2] > 0)
         {
+            Vector3 tm = GetComponentInParent<Transform>().localPosition;
+            Quaternion q = gameObject.transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+            atackLeft(tm, q);
+
             //attackable.SecondWeapon.SecondAttack.Attack();
             Debug.Log("Attacked with 2 weapon and 2 attack");
         }
 
         if (dact[3] > 0)
-            clone.Clone();
+            _clone();
     }
 }
