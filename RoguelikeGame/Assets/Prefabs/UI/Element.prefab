@@ -126,7 +126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.20833331, y: 0}
   m_AnchorMax: {x: 0.91388905, y: 1}
-  m_AnchoredPosition: {x: 0, y: -4.1499977}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -2, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9108201574072219147
@@ -184,10 +184,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.95
-  m_fontSizeBase: 35
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 1
   m_fontSizeMax: 35
   m_fontStyle: 0
@@ -366,12 +366,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8447734277548935681}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: ItemCell, Assembly-CSharp
+        m_MethodName: UpdateNameAndIcon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -390,7 +390,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Item: {fileID: 0}
-  _Count: 0
   _ItemName: {fileID: 1349088193804625053}
-  _ItemCount: {fileID: 0}
   _ItemIcon: {fileID: 270069358325985945}

@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class IAttackable : MonoBehaviour
 {
-    //[SerializeField]
-    //Weapon weapon;
-
     [SerializeField]
     Collider PlayerCollider;
+
+    [SerializeField]
+    private Transform WeaponPosition;
 
     [SerializeField]
     public Weapon FirstWeapon;
@@ -18,12 +18,49 @@ public class IAttackable : MonoBehaviour
     [SerializeField]
     public Weapon SecondWeapon;
 
-
-
-    private void Start()
+    public void SetFirstWeapon(Weapon weapon)
     {
+        if (!weapon) return;
 
+        var weaponModel = Instantiate(weapon.transform.GetChild(0).gameObject);
+
+        weaponModel.transform.SetParent(WeaponPosition, false);
+        weaponModel.transform.localPosition = Vector3.zero;
+
+        FirstWeapon = weapon;
     }
+
+    public void SetSecondWeapon(Weapon weapon)
+    {
+        if (!weapon) return;
+
+        var weaponModel = Instantiate(weapon.transform.GetChild(0).gameObject);
+
+        weaponModel.transform.SetParent(WeaponPosition, false);
+        weaponModel.transform.localPosition = Vector3.zero;
+
+        SecondWeapon = weapon;
+    }
+
+    public void UnsetFirstWeapon()
+    {
+        var model = WeaponPosition.transform.GetChild(0);
+
+        Destroy(model.gameObject);
+
+        FirstWeapon = null;
+    }
+
+    public void UnsetSecondWeapon()
+    {
+        var model = WeaponPosition.transform.GetChild(0);
+
+        Destroy(model.gameObject);
+
+        SecondWeapon = null;
+    }
+
+
     public void Attack()
     {
 

@@ -65,8 +65,7 @@ public class Inventory : MonoBehaviour
     {
         if (item.TryGetComponent<Item>(out var itemComponent))
         {
-            Add(itemComponent);
-            return true;
+            return Add(itemComponent);
         }
 
         return false;
