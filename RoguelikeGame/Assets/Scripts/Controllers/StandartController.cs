@@ -9,7 +9,7 @@ public abstract class StandartController : MonoBehaviour
     [SerializeField] protected Movable movable;
     [SerializeField] protected IAttackable attackable;
     [SerializeField] protected Dashable dashable;
-    [SerializeField] protected Animator animator;
+    [SerializeField] public Animator animator;
 
 
     private void Awake()

@@ -11,6 +11,10 @@ public class DoDamage : Command
     //int CurrentDamage;
     //int MinDamage;
     //int MaxDamage;
+    public override void ShowAnimation()
+    {
+        _PlayerController._Instance.animator.SetTrigger("Attack");
+    }
     public override void Do(Vector3 pos, Quaternion quaternion)
     {
         ShowAnimation();

@@ -179,6 +179,7 @@ public class _PlayerController : StandartController
                 TimerOn = true;
             if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)
             {
+                
                 Vector3 tm = GetComponentInParent<Transform>().localPosition;
                 Quaternion q = gameObject.transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
                 attackable.FirstWeapon.FirstAttack.PressHandler.Do(_timer, ref cuat, tm, q);

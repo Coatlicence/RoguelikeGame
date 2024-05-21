@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2098236194510345396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1252,7 +1252,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 5, y: -5}
-  m_SizeDelta: {x: 0, y: -10}
+  m_SizeDelta: {x: 45.999634, y: -10}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1717208948723949183
 CanvasRenderer:
@@ -1399,7 +1399,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 8}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1980779378321673219
 CanvasRenderer:
@@ -2001,7 +2001,7 @@ MonoBehaviour:
   movable: {fileID: 6081173856551285611}
   attackable: {fileID: 4913291591927205859}
   dashable: {fileID: 972585133279163596}
-  animator: {fileID: 0}
+  animator: {fileID: 8283272554994696488}
   weaponFactory: {fileID: 0}
 --- !u!114 &6081173856551285611
 MonoBehaviour:
@@ -2059,8 +2059,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8827064185465825353}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e818f6cae4ded6b4f8e951df0796e3c1, type: 3}
-  m_Controller: {fileID: 9100000, guid: e18adc228f2b06843b74b1be3a420988, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 7b5a038154404db4eb4853eaee1d274e, type: 3}
+  m_Controller: {fileID: 9100000, guid: cbd112222c7da494daac1a84529b3b35, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
