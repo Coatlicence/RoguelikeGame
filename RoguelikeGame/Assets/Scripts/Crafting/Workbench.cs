@@ -8,50 +8,50 @@ public class Workbench : MonoBehaviour
 {
     //Button okButton;
 
-    public VisualTreeAsset itemsListTemplate;   //uxml-шаблон элементов списка
+    public VisualTreeAsset itemsListTemplate;   //uxml-пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     Inventory _inventory;
-    List<Item> items;//список товаров
+    List<Item> items;//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     ListView itemsListView;
     void OnEnable()
     {
         _PlayerController._Instance.SetFocus(_PlayerController.Focus.CRAFT);
-        //Получаем ссылку на компонент UIDocument
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UIDocument
         var uiDocument = GetComponent<UIDocument>();
-        //Находим кнопку таким запросом, в параметр передаем имя кнопки
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         //okButton = uiDocument.rootVisualElement.Q<Button>("okButton");
-        //Регистрируем событие нажатия кнопки
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         //okButton.RegisterCallback<ClickEvent>(ClickMessage);
 
 
-        //Работаем со списком
-        //1. Инициализируем список товаров
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        //1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         _inventory = GetComponentInParent<Inventory>();
         items = _inventory.GetItemsList();
 
 
-        //2. Находим отображаемый список на странице
+        //2. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         itemsListView = uiDocument.rootVisualElement.Q<ListView>("Items");
 
-        //3. Связываем шаблон элементов списка с самим списком
+        //3. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         itemsListView.makeItem = () =>
         {
             return itemsListTemplate.Instantiate();
         };
-        //Связываем список товаров по индексу
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-        //4. Связываем данные с отображаемым списком
+        //4. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         itemsListView.bindItem = (_item, _index) =>
         {
             var item = items[_index];
-            //Получаем доступ к визуальным элементам шаблона по именам, которые мы указали в шаблоне
+            //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             _item.Q<Label>("name").text = item._Name;
-            _item.Q<VisualElement>("Icon").style.backgroundImage =new StyleBackground( item.Icon);
+            _item.Q<VisualElement>("Icon").style.backgroundImage =new StyleBackground( item._Icon);
         };
 
-        //Здесь все стандартно
+        //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         itemsListView.itemsSource = items;
 
-        //5. Регистрируем событие выбора из списка
+        //5. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         itemsListView.onSelectionChange += ItemsListView_onSelectionChange;
 
     }
@@ -64,13 +64,13 @@ public class Workbench : MonoBehaviour
         if (obj.Count() > 0)
         {
             var item = obj.First() as Item;
-            //Debug.Log($"{item.Name}: {item.Price} руб");
+            //Debug.Log($"{item.Name}: {item.Price} пїЅпїЅпїЅ");
         }
     }
 
     void ClickMessage(ClickEvent e)
     {
-        //Реализуем тут любые действия при нажатии кнопки
+        //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Debug.Log("ok");
     }
 }
