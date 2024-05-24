@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Weapon : Item
 {
+    public override object Clone()
+    {
+        var clone = new Weapon();
+        
+        return clone;
+    }
     private GameObject _model;
     public void SetModel(GameObject Model)
     {
@@ -32,6 +38,10 @@ public class Weapon : Item
     [SerializeField]
     public BaseAttack SecondAttack;
 
+    protected void Swap()
+    {
+
+    }
     //�������� ���������� ����������� ���� ������� ����� ������� ��� ������
     [SerializeField]
     protected int _MinDamage;

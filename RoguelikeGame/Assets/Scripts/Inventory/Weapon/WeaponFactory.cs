@@ -13,25 +13,25 @@ using UnityEngine.SocialPlatforms.Impl;
 public class WeaponFactory : MonoBehaviour
 {
     //�������� ������ �����
-    public List<GameObject> guarts;
-    public List<GameObject> blades;
-    public List<GameObject> hilts;
-    public List<string> NamesOfSwords;
+    private List<GameObject> guarts;
+    private List<GameObject> blades;
+    private List<GameObject> hilts;
+    private List<string> NamesOfSwords;
 
     //�������� ������ �����
-    public List<GameObject> pommels;
-    public List<GameObject> spearheads;
-    public List<GameObject> shafts;
-    public List<string> NamesOfSpears;
+    private List<GameObject> pommels;
+    private List<GameObject> spearheads;
+    private List<GameObject> shafts;
+    private List<string> NamesOfSpears;
 
     //�������� ������ �������
-    public List<GameObject> handles;
-    public List<GameObject> counterweights;
-    public List<GameObject> axeBlades;
-    public List<GameObject> axePommels;
-    public List<string> NamesOfAxes;
+    private List<GameObject> handles;
+    private List<GameObject> counterweights;
+    private List<GameObject> axeBlades;
+    private List<GameObject> axePommels;
+    private List<string> NamesOfAxes;
 
-    public List<string> NamesOfBows;
+    private List<string> NamesOfBows;
     GameObject empty;
     GameObject emptyTrue;
     //static WeaponGenerator weaponGenerator;
@@ -99,16 +99,7 @@ public class WeaponFactory : MonoBehaviour
         }
         inp_stm.Close();
     }
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.J))
-        //{
-            
-        //    CreateRandomWeapon(0, new Vector3(3.22f,0.32f,-3.44f),Quaternion.identity);
-        //}
-    }
 
-    [System.Obsolete]
     public GameObject CreateRandomWeapon(int numOfStage, Vector3 pos, Quaternion quaternion)
     {
         GameObject model =null;
@@ -171,7 +162,7 @@ public class WeaponFactory : MonoBehaviour
     void SetHandlers(ref Weapon tmpMeleeWeapon,float sumBoost,float delayTime,int minNumsOfUpdate,int MaxNumsOfUpdate)
     {
         BaseAttack baseAttack = new BaseAttack();
-        DoDamage oNPress = new DoDamage();
+        DoDamage oNPress = new SlashDoDamage();
         oNPress.weapon = tmpMeleeWeapon;
 
         switch (Random.Range(0, 2))
@@ -181,7 +172,7 @@ public class WeaponFactory : MonoBehaviour
                 tmpMeleeWeapon.FirstAttack = baseAttack;
                 break;
             case 1:
-                oNPress._damageBoost = (Random.value + sumBoost) / 4;
+                oNPress.SetdamageBoost((Random.value + sumBoost) / 4);
                 Increase onIncreace = new Increase();
                 onIncreace.doDamage = oNPress;
                 onIncreace._stepIUp = Random.value + delayTime;
@@ -190,6 +181,7 @@ public class WeaponFactory : MonoBehaviour
 
                 baseAttack.HoldHandler = onIncreace;
                 baseAttack.ReleaseHandler = oNPress;
+
                 tmpMeleeWeapon.FirstAttack = baseAttack;
 
                 break;
@@ -242,7 +234,7 @@ public class WeaponFactory : MonoBehaviour
     void SetBowParametr(GameObject model, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
         BaseAttack baseAttack = new BaseAttack();
-        DoDamage oNPress = new DoDamage(); 
+        DoDamage oNPress = new SlashDoDamage(); 
 
         RangeWeapon tmpRangeWeapon = model.GetComponent<RangeWeapon>();
         tmpRangeWeapon.SetMaxDamage(Random.Range(20, 25));

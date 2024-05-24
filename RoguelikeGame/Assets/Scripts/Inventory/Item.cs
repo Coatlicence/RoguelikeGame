@@ -8,8 +8,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour, ICloneable
 {
+    public Item()
+    {
+        _Name = "";
+        _Lore = "";
+        _Price = 0;
+    }
+    public abstract object Clone();
+
     // Имя предмета
     public string _Name;
     public string GetName()

@@ -15,7 +15,7 @@ public class ItemCell : MonoBehaviour
     [SerializeField] private TMP_Text _ItemName;
 
     [SerializeField] private Image _ItemIcon;
-
+    public Image GetImage() { return _ItemIcon; }
     public void UpdateNameAndIcon()
     {
         _ItemName.text = _Item._Name;

@@ -32,7 +32,6 @@ public class InventoryUIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         UpdateMaxItemCount();
     }
 
