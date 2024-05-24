@@ -19,7 +19,7 @@ public class ItemCell : MonoBehaviour
     public void UpdateNameAndIcon()
     {
         _ItemName.text = _Item._Name;
-        _ItemIcon.sprite = _Item.Icon;
+        _ItemIcon.sprite = _Item._Icon;
     }
 
 }

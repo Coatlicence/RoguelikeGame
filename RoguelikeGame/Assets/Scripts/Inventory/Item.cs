@@ -58,6 +58,7 @@ public abstract class Item : MonoBehaviour
         if (value >= 0&&value<_DurabilityMax) { _Durability = value; }
         else Console.WriteLine("Incorrect Durability");
     }
+
     [SerializeField] protected int _DurabilityMax;
     public int GetDurabilityMax()
     {
@@ -69,6 +70,22 @@ public abstract class Item : MonoBehaviour
         else Console.WriteLine("Incorrect Durability");
     }
 
-    public Sprite Icon;
+    public Sprite _Icon;
+
+    public GameObject _Model;
+
+    private void Awake()
+    {
+        LoadAssets();
+    }
+
+    private void LoadAssets()
+    {
+        _Icon = Resources.Load($"Icons/{GetType().Name}") as Sprite;
+        _Model = Resources.Load($"Models/{GetType().Name}") as GameObject;
+
+        if (!_Icon)     Debug.LogError($"Icon for {GetType().Name} is null");
+        if (!_Model)    Debug.LogError($"Model for {GetType().Name} is null");
+    }
 
 }

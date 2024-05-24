@@ -17,7 +17,7 @@ public class _PlayerController : StandartController
         _timer = 0;
         TimerOn = false;
         WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
-         factory.CreateRandomWeapon(0,new Vector3(1,4,1), Quaternion.identity).GetComponent<Weapon>();
+        factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
     public enum Focus
     {

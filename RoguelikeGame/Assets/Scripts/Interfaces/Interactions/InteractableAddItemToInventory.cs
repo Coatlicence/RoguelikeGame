@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Item))]
 public class InteractableAddItemToInventory : IInteractable
 {
-    [SerializeField] Item item;
+    public Item _Item;
 
     public override void Interact(StandartController activator)
     {
+        if (!_Item) return;
+
         if (activator.TryGetComponent<Inventory>(out var inventory)) 
         {
-            inventory.Add(item); 
+            inventory.Add(_Item); 
         }
     }
 }

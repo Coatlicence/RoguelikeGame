@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -14,9 +10,7 @@ public class Inventory : MonoBehaviour
     [Header("Container of Slot objects")]
     [SerializeField] GameObject _Items;
 
-    [Header("SlotPrefab")]
-    [SerializeField] GameObject _ItemSlotPrefab;
-
+    // Choosed Item presents the item in inventory on UI info tab
     private Item _choosedItem;
 
     public Item _ChoosedItem
@@ -61,8 +55,11 @@ public class Inventory : MonoBehaviour
 
     public GameObject GetItems() { return _Items; }
 
+    // Tries to get component Item on world gameObject
     public bool Add(GameObject item)
     {
+        if (!item) { return false; }
+
         if (item.TryGetComponent<Item>(out var itemComponent))
         {
             return Add(itemComponent);
@@ -79,14 +76,18 @@ public class Inventory : MonoBehaviour
         if (_Items.transform.childCount >= _MaxItemCount)
             return false;
 
-        var slot = Instantiate(_ItemSlotPrefab).GetComponent<ItemCell>();
+        // Creates slot
+        var slot = Instantiate(WorldManager._Instance._ItemSlotPrefab).GetComponent<ItemCell>();
 
+        // Standart value for non choosed item
         slot.GetComponentInParent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
 
+        // Sets slot to _Items for futher containig
         slot.transform.SetParent(_Items.transform, false);
 
         slot._Item = item;
 
+        // Most important action. Without parenting it to slot, it will not work
         item.transform.SetParent(slot.transform, false);
 
         item.gameObject.SetActive(false);
@@ -102,11 +103,32 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    private void Start()
+    {
+        Add(typeof(Emerald));
+    }
+
+    public bool Add(Type itemType)
+    {
+        // Create item prefab        
+        var itemObject = WorldManager._Instance.SpawnItem(itemType, new Vector3(0, 0, 0));
+
+        if (!itemObject)
+        {
+            Debug.LogError($"Trying to add {itemType} type, but SpawnItem cant Instantiate this");
+            return false;
+        }
+
+        // assign it with other function
+        return Add(itemObject.GetComponent<Item>());
+    }
+
     public void Throw(Item item)
     {
         if (item) Throw(item.GetType());
     }
 
+    // Finds first type match and throws it from player inventory
     public void Throw(Type itemType)
     {
         var item = HasItem(itemType);

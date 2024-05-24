@@ -38,7 +38,7 @@ public class InventoryUIManager : MonoBehaviour
 
     public void UpdateCurrentItemCount()
     {
-        _CurrentItemCount.text = (_Inventory.GetItems().transform.childCount).ToString();
+        if (_CurrentItemCount) _CurrentItemCount.text = (_Inventory.GetItems().transform.childCount).ToString();
     }
 
     public void UpdateMaxItemCount()
