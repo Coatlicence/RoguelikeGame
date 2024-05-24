@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="BackPanel" style="background-color: rgb(56, 56, 56); height: 100px; width: 296px;">
+        <ui:VisualElement name="Icon" style="height: 100px; width: 100px; background-image: none;" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="name" style="height: 93px; width: 190px; white-space: normal; -unity-text-align: middle-center; position: absolute; top: 0; left: 100px; color: rgb(242, 255, 16);" />
+    </ui:VisualElement>
+</ui:UXML>

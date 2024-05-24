@@ -9,15 +9,15 @@ using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] uint _MaxItemCount = 10;
+    [SerializeField] protected uint _MaxItemCount = 10;
 
     [Header("Container of Slot objects")]
-    [SerializeField] GameObject _Items;
+    [SerializeField] protected GameObject _Items;
 
     [Header("SlotPrefab")]
-    [SerializeField] GameObject _ItemSlotPrefab;
+    [SerializeField] protected GameObject _ItemSlotPrefab;
 
-    private Item _choosedItem;
+    protected Item _choosedItem;
 
     public Item _ChoosedItem
     {
@@ -136,7 +136,7 @@ public class Inventory : MonoBehaviour
 
     public Item HasItem(Type item)
     {
-        for (Iterator it = new(this); it._Item != null; it++)
+        for (Iterator it = new(this); it != null; it++)
         {
             if (it._Item.GetType() == item)
                 return it._Item;
@@ -149,13 +149,26 @@ public class Inventory : MonoBehaviour
     {
         if (!item) return false;
 
-        for (Iterator it = new(this); it._Item != null; it++)
+        for (Iterator it = new(this); it != null; it++)
         {
             if (it._Item == item)
                 return true;
         }
 
         return false;
+    }
+    public List<Item> GetItemsList()
+    {
+        List<Item> list = new List<Item>();
+        for (Iterator it = new(this); it != null; it++)
+        {
+            if (it._Item!=null)
+            {
+                list.Add(it._Item);
+            }
+            
+        }
+        return list;
     }
 
 }
@@ -193,7 +206,7 @@ public class Iterator
         it._Index++;
 
         if (it._Index >= it._Inventory.GetItems().transform.childCount) 
-            it._Index = it._Inventory.GetItems().transform.childCount - 1;
+            return null;
 
         it.GetItemInInventoryByIndex();
         return it;

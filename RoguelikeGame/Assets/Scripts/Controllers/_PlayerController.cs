@@ -12,18 +12,20 @@ public class _PlayerController : StandartController
     bool TimerOn;
     [SerializeField]
     public GameObject weaponFactory;
+    public GameObject CraftStation;
     private void Start()
     {
         _timer = 0;
         TimerOn = false;
-        WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
-         factory.CreateRandomWeapon(0,new Vector3(1,4,1), Quaternion.identity).GetComponent<Weapon>();
+        //WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        // factory.CreateRandomWeapon(0,new Vector3(1,4,1), Quaternion.identity).GetComponent<Weapon>();
     }
     public enum Focus
     {
         EMPTY = 0,
         GAME,
         INVENTORY,
+        CRAFT,
         // add other focuses
     }
     //private Collider[] Colliders = new Collider[100];
@@ -56,6 +58,7 @@ public class _PlayerController : StandartController
 
         MOUSE_RIGHT = null;
         MOUSE_LEFT  = null;
+        MOUSE_LEFT_UP = null;
         SPACE       = null;
         WASD        = null;
         E           = null;
@@ -69,6 +72,7 @@ public class _PlayerController : StandartController
             case Focus.GAME:
                 MOUSE_RIGHT = AttackRight;
                 MOUSE_LEFT  = AttackLeft;
+                MOUSE_LEFT_UP = MouseLeftUp;
                 SPACE       = Dash;
                 WASD        = Move;
                 E           = Interact;
@@ -80,6 +84,10 @@ public class _PlayerController : StandartController
                 SPACE   = ThrowItem;
                 I       = OpenInventory;
                 break;
+            case Focus.CRAFT:
+                I = CloseCraft;
+                break;
+
         }
     }
 
@@ -95,21 +103,10 @@ public class _PlayerController : StandartController
         //TimerOn = Input.GetKeyDown(KeyCode.Mouse0)?true: TimerOn;
         if (Input.GetMouseButton(0))
             MOUSE_LEFT?.Invoke();
+
         if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            if(attackable.FirstWeapon.FirstAttack.ReleaseHandler!= null)
-            {
-                Vector3 tm = GetComponentInParent<Transform>().localPosition;
-                //Quaternion q = GetComponentInParent<Transform>().rotation;
-                Quaternion q =transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
-                int tmp = 0;
-                attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
-            }
-            _timer = 0;
-            TimerOn = false;
-            cuat = 0;
-            
-        }
+            MOUSE_LEFT_UP?.Invoke();
+
         if (Input.GetMouseButtonDown(1))
             MOUSE_RIGHT?.Invoke();
 
@@ -128,6 +125,7 @@ public class _PlayerController : StandartController
 
     private delegate void ControllerMethod();
     ControllerMethod MOUSE_LEFT;
+    ControllerMethod MOUSE_LEFT_UP;
     ControllerMethod MOUSE_RIGHT;
     ControllerMethod SPACE;
     ControllerMethod E;
@@ -169,6 +167,21 @@ public class _PlayerController : StandartController
                 transform.GetChild(0).transform.rotation = _CurrentRotation;
             }
         }
+    }
+
+    protected void MouseLeftUp()
+    {
+        if (attackable.FirstWeapon.FirstAttack.ReleaseHandler != null)
+        {
+            Vector3 tm = GetComponentInParent<Transform>().localPosition;
+            //Quaternion q = GetComponentInParent<Transform>().rotation;
+            Quaternion q = transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+            int tmp = 0;
+            attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
+        }
+        _timer = 0;
+        TimerOn = false;
+        cuat = 0;
     }
 
     protected override void AttackLeft()
@@ -244,7 +257,13 @@ public class _PlayerController : StandartController
     {
         InventoryUIManager.GetInstance().OpenInventory();
     }
-
+    
+    private void CloseCraft()
+    {
+        CraftStation.SetActive(false);
+        CraftStation=null;
+        SetFocus(Focus.GAME);
+    }
     /// -----------------------------------------------------
     /// FOCUS INVENTORY
     protected void ThrowItem()

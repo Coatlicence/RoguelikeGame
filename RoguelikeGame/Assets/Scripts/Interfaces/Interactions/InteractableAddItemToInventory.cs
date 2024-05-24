@@ -6,7 +6,7 @@ using UnityEngine;
 public class InteractableAddItemToInventory : IInteractable
 {
     [SerializeField] Item item;
-
+    public Item GetItem() { return item; }
     public override void Interact(StandartController activator)
     {
         if (activator.TryGetComponent<Inventory>(out var inventory)) 

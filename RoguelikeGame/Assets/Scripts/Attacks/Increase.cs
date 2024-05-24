@@ -13,8 +13,9 @@ public class Increase : Command
         if (_timer/(cuat*_stepIUp) > 1)
         {
             cuat++;
-            if(doDamage._upgrate<NumTolnc&&cuat>0)
-                doDamage._upgrate++;
+            int v = doDamage.GetUpgrade();
+            if (v < NumTolnc && cuat > 0)
+                doDamage.SetUpgrage(++v);
         }
     }
 }
