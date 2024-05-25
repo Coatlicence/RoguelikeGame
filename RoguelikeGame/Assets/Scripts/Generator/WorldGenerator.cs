@@ -9,8 +9,6 @@ public class WorldGenerator : MonoBehaviour
 {
     public static WorldGenerator _Instance;
 
-    public GameObject OldRoom;
-
     public List<RoomPair> AllRooms = new();
     
 
@@ -43,7 +41,7 @@ public class WorldGenerator : MonoBehaviour
 
     public void SpawnPlayerInNewRoom(RoomType room)
     {
-        Destroy(OldRoom);
+        //Destroy(OldRoom);
 
 
     }
@@ -100,4 +98,6 @@ public class RoomPair
     public RoomType        Room;
 
     public List<GameObject> Rooms = new();
+
+    public RoomPair(LocationType location, RoomType room) {  Location = location; Room = room; }
 }

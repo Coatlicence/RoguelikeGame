@@ -10,15 +10,15 @@ public class _PlayerController : StandartController
 {
     double _timer;
     bool TimerOn;
-    [SerializeField]
-    public GameObject weaponFactory;
+    //[SerializeField]
+    //public GameObject weaponFactory;
     public GameObject CraftStation;
     private void Start()
     {
         _timer = 0;
         TimerOn = false;
-        WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
-        factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
+        //WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        //factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
     
     public enum Focus
@@ -138,6 +138,9 @@ public class _PlayerController : StandartController
 
         if (_CurrentFocus == Focus.INVENTORY)
             WASD?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.N))
+            GetComponent<Inventory>().Throw(typeof(Emerald));
     }
 
     private delegate void ControllerMethod();
@@ -188,7 +191,7 @@ public class _PlayerController : StandartController
 
     protected void MouseLeftUp()
     {
-        if (attackable.FirstWeapon.FirstAttack.ReleaseHandler != null)
+        if (attackable && attackable.FirstWeapon && attackable.FirstWeapon.FirstAttack.ReleaseHandler != null)
         {
             Vector3 tm = GetComponentInParent<Transform>().localPosition;
             //Quaternion q = GetComponentInParent<Transform>().rotation;

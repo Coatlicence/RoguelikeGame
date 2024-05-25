@@ -2002,7 +2002,7 @@ MonoBehaviour:
   attackable: {fileID: 4913291591927205859}
   dashable: {fileID: 972585133279163596}
   animator: {fileID: 8283272554994696488}
-  weaponFactory: {fileID: 0}
+  CraftStation: {fileID: 0}
 --- !u!114 &6081173856551285611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MaxItemCount: 10
   _Items: {fileID: 5900147647236995703}
-  _ItemSlotPrefab: {fileID: 6259068677042919654, guid: d981325028c8222479ca733b00fb1ab4, type: 3}
 --- !u!1001 &2176492062245837195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2242,19 +2241,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8025160963793378769, guid: cea4d3c302708bd47b16dcb7234ec4e7, type: 3}
   m_PrefabInstance: {fileID: 2176492062245837195}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1801050457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8172743181581059162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f9d62df69ca62f42bd5b597bbc4d2a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 843655569323910427}
 --- !u!114 &1253460998513546029
 MonoBehaviour:
   m_ObjectHideFlags: 0
