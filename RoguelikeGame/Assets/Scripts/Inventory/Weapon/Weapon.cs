@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class Weapon : Item
 {
-    public override object Clone()
-    {
-        var clone = new Weapon();
-        
-        return clone;
-    }
     private GameObject _model;
     public void SetModel(GameObject Model)
     {

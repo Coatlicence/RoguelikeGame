@@ -5,15 +5,6 @@ using UnityEngine;
 
 public class Ammo:Item
 {
-    public override object Clone()
-    {
-
-        var tmp = new Ammo();
-        tmp._Name = _Name;
-        tmp._Lore = _Lore;
-        tmp._Price = _Price;
-        return tmp;
-    }
     //свойство отвечающее за урон боеприпаса
     [SerializeField]
     protected int _Damage;

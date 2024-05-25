@@ -1,13 +1,9 @@
+using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.UI;
-using static TMPro.Examples.TMP_ExampleScript_01;
-using static UnityEditor.Progress;
 
 public class CraftInventory : Inventory
 {
@@ -18,13 +14,14 @@ public class CraftInventory : Inventory
     static List<Type>  currentIndigrients;
     private void Awake()
     {
+
         recipes = new List<Recipe>();
         var tmp = new Recipe();
         Item tm = new Emerald();
         tmp.ingridients.Add(typeof(Emerald));
         tmp.ingridients.Add(typeof(Shoflle));
         tmp.ingridients.Add(typeof(FruitGlowBash));
-        tmp.Rezult = typeof(HealPotion) ;
+        tmp.Rezult = typeof(RepairPotion);
         recipes.Add(tmp);
 
         tmp = new Recipe();
@@ -34,12 +31,32 @@ public class CraftInventory : Inventory
         tmp.ingridients.Add(typeof(Water));
         tmp.Rezult = typeof(HealPotion);
         recipes.Add(tmp);
+
+        tmp = new Recipe();
+        tmp.ingridients.Add(typeof(Emerald));
+        tmp.ingridients.Add(typeof(Emerald));
+        tmp.ingridients.Add(typeof(Shoflle));
+        tmp.ingridients.Add(typeof(FruitGlowBash));
+        tmp.ingridients.Add(typeof(Water));
+        tmp.Rezult = typeof(RepairPotion);
+        recipes.Add(tmp);
+
+        tmp = new Recipe();
+        tmp.ingridients.Add(typeof(Water));
+        tmp.ingridients.Add(typeof(FruitGlowBash));
+        tmp.ingridients.Add(typeof(Shoflle));
+        tmp.ingridients.Add(typeof(FruitGlowBash));
+        tmp.ingridients.Add(typeof(Shoflle));
+        tmp.Rezult = typeof(HealPotion);
+        recipes.Add(tmp);
         currentIndigrients = new List<Type>();
+
     }
     void OnEnable()
     {
         _PlayerController._Instance.SetFocus(_PlayerController.Focus.CRAFT);
         _PlayerController._Instance.CraftStation = gameObject;
+        UpdateDate();
         for (Iterator it = new(inventory); it != null; it++)
         {
             if (it._Item != null)
@@ -52,19 +69,46 @@ public class CraftInventory : Inventory
     }
     private void OnDisable()
     {
-        var inv = _PlayerController._Instance.GetComponent<Inventory>();
+        UpdateMainData();
+        //var inv = _PlayerController._Instance.GetComponent<Inventory>();
         //inv = inventory;
         //_PlayerController._Instance.SetFocus(_PlayerController.Focus.GAME);
     }
 
+    private void UpdateDate()
+    {
+        while (_Items.transform.childCount > 0)
+        {
+            DestroyImmediate(_Items.transform.GetChild(0).gameObject);
+        }
 
-
+    }
+    private void UpdateMainData()
+    {
+        while (_PlayerController._Instance.GetComponent<Inventory>().GetItems().transform.childCount > 0)
+        {
+            DestroyImmediate(_PlayerController._Instance.GetComponent<Inventory>().GetItems().transform.GetChild(0).gameObject);
+        }
+        for (Iterator it = new(this); it != null; it++)
+        {
+            if (it._Item != null)
+            {
+                _PlayerController._Instance.GetComponent<Inventory>().Add(it._Item);
+                _PlayerController._Instance.GetComponent<Inventory>()._ChoosedItem = it._Item;
+            }
+        }
+    }
     public void AddIgridient()
     {
         Type tmp = _ChoosedItem.GetType();
         currentIndigrients.Add(tmp);
-        _PlayerController._Instance.GetComponent<Inventory>().Throw(tmp);
+        //Destroy(_ChoosedItem);
+        //_PlayerController._Instance.GetComponent<Inventory>().Throw(tmp);
         Delete(tmp);
+        //Destroy(_ChoosedItem);
+        //UpdateDate();
+
+
     }
     public void AddWater()
     {
@@ -99,42 +143,5 @@ public class CraftInventory : Inventory
         currentIndigrients = new List<Type>();
         return;
     }
-    private void UpdatePicture()
-    {
 
-
-    }
-    //public bool AddNew(Item item)
-    //{
-    //    if (item == null)
-    //        return false;
-
-    //    if (_Items.transform.childCount >= _MaxItemCount)
-    //        return false;
-
-    //    var slottmp = Instantiate(_ItemSlotPrefab);
-    //    var slot = slottmp.GetComponent<ItemCell>();
-    //    var tmp =slot.GetComponent<InventoryItem>();
-    //    //tmp.SetHeldItem(slottmp);
-
-    //    slot.GetComponentInParent<Image>().color = new Color(0.3f, 0.3f, 0.3f);
-
-    //    slot.transform.SetParent(_Items.transform, false);
-
-    //    slot._Item = item;
-
-    //    item.transform.SetParent(slot.transform, false);
-
-    //    item.gameObject.SetActive(false);
-
-    //    slot.UpdateNameAndIcon();
-
-    //    var eventClick = slot.GetComponent<Button>().onClick;
-
-    //    eventClick.AddListener(() => { _ChoosedItem = item; });
-
-    //    InventoryUIManager.GetInstance().UpdateCurrentItemCount();
-
-    //    return true;
-    //}
 }
