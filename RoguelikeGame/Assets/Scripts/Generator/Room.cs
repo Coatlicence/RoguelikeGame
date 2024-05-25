@@ -6,7 +6,12 @@ public class Room : MonoBehaviour
 {
     [SerializeField] RoomType type;
 
+    [SerializeField] List<GameObject> NextRooms;
 
+    private void Awake()
+    {
+        //Find
+    }
 
     void Start()
     {

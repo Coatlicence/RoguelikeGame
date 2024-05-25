@@ -20,6 +20,7 @@ public class _PlayerController : StandartController
         WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
         factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
+    
     public enum Focus
     {
         EMPTY = 0,
@@ -44,11 +45,13 @@ public class _PlayerController : StandartController
     private void Awake()
     {
         if (_Instance != null && _Instance != this)
-            Destroy(this);        
+            Destroy(gameObject);        
         else
             _Instance = this;
 
         SetFocus(Focus.GAME);
+
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -105,6 +108,20 @@ public class _PlayerController : StandartController
             MOUSE_LEFT?.Invoke();
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            if(attackable.FirstWeapon && attackable.FirstWeapon.FirstAttack.ReleaseHandler!= null)
+            {
+                Vector3 tm = GetComponentInParent<Transform>().localPosition;
+                //Quaternion q = GetComponentInParent<Transform>().rotation;
+                Quaternion q =transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+                int tmp = 0;
+                attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
+            }
+            _timer = 0;
+            TimerOn = false;
+            cuat = 0;
+            
+        }
             MOUSE_LEFT_UP?.Invoke();
 
         if (Input.GetMouseButtonDown(1))
@@ -187,7 +204,7 @@ public class _PlayerController : StandartController
     protected override void AttackLeft()
     {
 
-        if (attackable)
+        if (attackable && attackable.FirstWeapon)
         {
                 TimerOn = true;
             if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)

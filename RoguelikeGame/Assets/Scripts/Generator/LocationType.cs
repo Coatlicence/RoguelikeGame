@@ -1,6 +1,5 @@
 using System;
 
-[Serializable]
 public enum LocationType
 {
     LushCaves,
@@ -9,6 +8,6 @@ public enum LocationType
 
     DarkVolcanicCaves,
 
-    Seriantatum
+    Seriantatum,
 }
 

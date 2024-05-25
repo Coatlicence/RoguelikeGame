@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 6599697769803546373}
   - component: {fileID: 932608970092361643}
   m_Layer: 0
-  m_Name: TestRoom
+  m_Name: LushFight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

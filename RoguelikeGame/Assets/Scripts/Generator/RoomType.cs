@@ -8,11 +8,7 @@ public enum RoomType
 {
     FightSmall,
 
-    FightMedium,
-
-    FightArena,
-
     Restroom,
 
-    Craftroom
+    Craftroom,
 }
