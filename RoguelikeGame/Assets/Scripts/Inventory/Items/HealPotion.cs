@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class HealPotion : Item
 {
+    private void Awake()
+    {
+        _Icon = Resources.Load<Sprite>("bgdarkpotionred05");
+    }
     public override object Clone()
     {
 
@@ -18,5 +22,6 @@ public class HealPotion : Item
         _Name = "Исцелющее зелье";
         _Lore = "Встречается нечасто, особенно в замшелых пещерах";
         _Price = 50;
+        
     }
 }

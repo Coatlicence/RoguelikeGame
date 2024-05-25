@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        Add(typeof(Emerald));
+        //Add(typeof(Emerald));
     }
 
     public bool Add(Type itemType)
@@ -193,7 +193,36 @@ public class Inventory : MonoBehaviour
         }
         return list;
     }
+    public void Delete(Item item)
+    {
+        if (item) Delete(item.GetType());
+    }
+    public void Delete(Type itemType)
+    {
+        var item = HasItem(itemType);
+        if (!item)
+            return;
 
+        var slot = item.transform.parent.gameObject;
+
+        if (item == _ChoosedItem)
+            _ChoosedItem = null;
+
+        item.transform.SetParent(null, false);
+
+        slot.transform.SetParent(null, false);
+
+        Destroy(slot);
+
+        Destroy(item.gameObject);
+
+
+
+        InventoryUIManager.GetInstance().UpdateCurrentItemCount();
+
+        Iterator it = new(this);
+        _ChoosedItem = it._Item;
+    }
 }
 public class Iterator
 {

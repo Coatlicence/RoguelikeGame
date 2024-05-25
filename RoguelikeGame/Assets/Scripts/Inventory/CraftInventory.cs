@@ -52,44 +52,19 @@ public class CraftInventory : Inventory
     }
     private void OnDisable()
     {
+        var inv = _PlayerController._Instance.GetComponent<Inventory>();
+        //inv = inventory;
         //_PlayerController._Instance.SetFocus(_PlayerController.Focus.GAME);
     }
 
-    public void Delete(Type itemType)
-    {
-        var item = HasItem(itemType);
-        if (!item)
-            return;
-
-        var slot = item.transform.parent.gameObject;
-
-        if (item == _ChoosedItem)
-            _ChoosedItem = null;
-
-        item.transform.SetParent(null, false);
-
-        slot.transform.SetParent(null, false);
-
-        Destroy(slot);
-
-        Destroy(item.gameObject);
 
 
-
-        InventoryUIManager.GetInstance().UpdateCurrentItemCount();
-
-        Iterator it = new(this);
-        _ChoosedItem = it._Item;
-    }
-    public void Delete(Item item)
-    {
-        if (item) Delete(item.GetType());
-    }
     public void AddIgridient()
     {
-        var tmp = _ChoosedItem.GetType();
+        Type tmp = _ChoosedItem.GetType();
         currentIndigrients.Add(tmp);
-        Delete(_ChoosedItem);
+        _PlayerController._Instance.GetComponent<Inventory>().Throw(tmp);
+        Delete(tmp);
     }
     public void AddWater()
     {
@@ -113,13 +88,14 @@ public class CraftInventory : Inventory
             }
             if(i== recipe.ingridients.Count)
             {
-                HealPotion tm = (HealPotion)Activator.CreateInstance(recipe.Rezult);
-                Add(tm);
+                Add(recipe.Rezult);
+                inventory.Add(recipe.Rezult);
                 currentIndigrients = new List<Type>();
                 return;
             }
         }
-        Add(new TrashPotion());
+        Add(typeof(TrashPotion));
+        inventory.Add(typeof(TrashPotion));
         currentIndigrients = new List<Type>();
         return;
     }

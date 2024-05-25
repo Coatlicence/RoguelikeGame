@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb680054e5fbec84b8027471dd203785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 1627884670992614454}
+  _Item: {fileID: 1627884670992614454}
 --- !u!135 &745995103567924448
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -83,7 +83,8 @@ MonoBehaviour:
   _Price: 100
   _Durability: 0
   _DurabilityMax: 0
-  Icon: {fileID: 21300000, guid: 7f854f490da24e54f9e8383e446b5d81, type: 3}
+  _Icon: {fileID: 0}
+  _Model: {fileID: 0}
 --- !u!1 &6825236859405863061
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0ce57c2008db524ca0cf73357bdc30d, type: 2}
+  - {fileID: 2100000, guid: dc2c29dadf0ef81468a5e65043dd1182, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

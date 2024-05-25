@@ -17,8 +17,8 @@ public class _PlayerController : StandartController
     {
         _timer = 0;
         TimerOn = false;
-        WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
-        factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
+        //WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        //factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
     
     public enum Focus
@@ -188,23 +188,27 @@ public class _PlayerController : StandartController
 
     protected void MouseLeftUp()
     {
-        if (attackable.FirstWeapon.FirstAttack.ReleaseHandler != null)
+        if (attackable && attackable.FirstWeapon != null)
         {
-            Vector3 tm = GetComponentInParent<Transform>().localPosition;
-            //Quaternion q = GetComponentInParent<Transform>().rotation;
-            Quaternion q = transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
-            int tmp = 0;
-            attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
+            if (attackable.FirstWeapon.FirstAttack.ReleaseHandler != null)
+            {
+                Vector3 tm = GetComponentInParent<Transform>().localPosition;
+                //Quaternion q = GetComponentInParent<Transform>().rotation;
+                Quaternion q = transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+                int tmp = 0;
+                attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
+            }
+            _timer = 0;
+            TimerOn = false;
+            cuat = 0;
         }
-        _timer = 0;
-        TimerOn = false;
-        cuat = 0;
     }
 
     protected override void AttackLeft()
     {
 
-        if (attackable && attackable.FirstWeapon)
+
+        if (attackable&&attackable.FirstWeapon!=null)
         {
                 TimerOn = true;
             if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)
