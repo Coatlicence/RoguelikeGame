@@ -5,6 +5,11 @@ using UnityEngine;
 public abstract class StandartController : MonoBehaviour
 {
     [SerializeField] protected float _InteractionRadius = 4f;
+    //For InteractionRadius setting
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawSphere(transform.position, _InteractionRadius);
+    //}
 
     [SerializeField] protected Movable movable;
     [SerializeField] protected IAttackable attackable;

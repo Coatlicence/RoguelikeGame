@@ -21,7 +21,7 @@ public class CraftInventory : Inventory
         tmp.ingridients.Add(typeof(Emerald));
         tmp.ingridients.Add(typeof(Shoflle));
         tmp.ingridients.Add(typeof(FruitGlowBash));
-        tmp.Rezult = typeof(RepairPotion);
+        tmp.Rezult = typeof(HealPotion);
         recipes.Add(tmp);
 
         tmp = new Recipe();
@@ -100,15 +100,12 @@ public class CraftInventory : Inventory
     }
     public void AddIgridient()
     {
-        Type tmp = _ChoosedItem.GetType();
-        currentIndigrients.Add(tmp);
-        //Destroy(_ChoosedItem);
-        //_PlayerController._Instance.GetComponent<Inventory>().Throw(tmp);
-        Delete(tmp);
-        //Destroy(_ChoosedItem);
-        //UpdateDate();
-
-
+        if (_ChoosedItem != null)
+        {
+            Type tmp = _ChoosedItem.GetType();
+            currentIndigrients.Add(tmp);
+            Delete(tmp);
+        }
     }
     public void AddWater()
     {
@@ -123,6 +120,10 @@ public class CraftInventory : Inventory
         if (currentIndigrients.Count == 0) return;
         foreach (Recipe recipe in recipes)
         {
+            if (recipe.ingridients.Count != currentIndigrients.Count)
+            {
+                continue;
+            }
             int i;
             for (i = 0; i < recipe.ingridients.Count; i++)
             {
@@ -138,9 +139,24 @@ public class CraftInventory : Inventory
                 return;
             }
         }
-        Add(typeof(TrashPotion));
-        inventory.Add(typeof(TrashPotion));
-        currentIndigrients = new List<Type>();
+        for (int i = 0; i < currentIndigrients.Count; i++)
+        {
+            if (!(currentIndigrients[i]==typeof(Water)|| currentIndigrients[i] == typeof(Shoflle)))
+            {
+                Add(typeof(TrashPotion));
+                currentIndigrients = new List<Type>();
+                inventory.Add(typeof(TrashPotion));
+                return;
+            }   
+
+        }
+        if (currentIndigrients.Contains(typeof(Water)))
+        {
+            Add(typeof(Water));
+            currentIndigrients = new List<Type>();
+            inventory.Add(typeof(Water));
+            return;
+        }
         return;
     }
 

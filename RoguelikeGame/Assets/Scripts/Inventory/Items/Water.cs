@@ -7,7 +7,7 @@ public class Water : Item
     public Water()
     {
         _Name = "Вода";
-        _Lore = "Обычная вода";
-        _Price = 2;
+        _Lore = "Обычная вода. Есть везде";
+        _Price = 0;
     }
 }

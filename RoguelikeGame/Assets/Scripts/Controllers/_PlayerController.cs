@@ -285,6 +285,7 @@ public class _PlayerController : StandartController
         CraftStation=null;
         SetFocus(Focus.GAME);
     }
+
     /// -----------------------------------------------------
     /// FOCUS INVENTORY
     protected void ThrowItem()
