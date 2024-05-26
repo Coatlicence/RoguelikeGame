@@ -7,8 +7,8 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
-public abstract class Item : MonoBehaviour, ICloneable
+[Serializable]
+public abstract class Item : MonoBehaviour
 {
     public Item()
     {
@@ -16,8 +16,7 @@ public abstract class Item : MonoBehaviour, ICloneable
         _Lore = "";
         _Price = 0;
     }
-    public abstract object Clone();
-
+    
     // Имя предмета
     public string _Name;
     public string GetName()
@@ -89,7 +88,7 @@ public abstract class Item : MonoBehaviour, ICloneable
 
     private void LoadAssets()
     {
-        _Icon = Resources.Load($"Icons/{GetType().Name}") as Sprite;
+        _Icon = Resources.Load<Sprite>($"Icons/{GetType().Name}");
         _Model = Resources.Load($"Models/{GetType().Name}") as GameObject;
 
         if (!_Icon)     Debug.LogError($"Icon for {GetType().Name} is null");

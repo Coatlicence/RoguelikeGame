@@ -226,7 +226,8 @@ public class _PlayerController : StandartController
     protected override void AttackLeft()
     {
 
-        if (attackable && attackable.FirstWeapon)
+
+        if (attackable&&attackable.FirstWeapon!=null)
         {
                 TimerOn = true;
             if(attackable.FirstWeapon.FirstAttack.HoldHandler == null)
@@ -300,6 +301,7 @@ public class _PlayerController : StandartController
         CraftStation=null;
         SetFocus(Focus.GAME);
     }
+
     /// -----------------------------------------------------
     /// FOCUS INVENTORY
     protected void ThrowItem()

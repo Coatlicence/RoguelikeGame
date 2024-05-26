@@ -5,15 +5,6 @@ using UnityEngine;
 
 public class Armor : Item
 {
-    public override object Clone()
-    {
-
-        var tmp = new Armor();
-        tmp._Name = _Name;
-        tmp._Lore = _Lore;
-        tmp._Price = _Price;
-        return tmp;
-    }
     //свойство минимальной защиты брони
     [SerializeField]
     protected uint _MinDefence;

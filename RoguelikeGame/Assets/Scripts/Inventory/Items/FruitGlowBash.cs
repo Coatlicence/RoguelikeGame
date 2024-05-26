@@ -11,12 +11,4 @@ public class FruitGlowBash : Item
         _Lore   = "Плод древнейшего растения, от которого произошли вся биолюминесцирующая фауна пещер";
         _Price  = 10;
     }
-    public override object Clone()
-    {
-        var  clone = new FruitGlowBash();
-        clone._Name = _Name;
-        clone._Lore = _Lore;
-            clone._Price = _Price;
-        return clone;
-    }
 }

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb680054e5fbec84b8027471dd203785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 4821302190921943768}
+  _Item: {fileID: 4821302190921943768}
 --- !u!135 &745995103567924448
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -81,7 +81,8 @@ MonoBehaviour:
   _Price: 10
   _Durability: 0
   _DurabilityMax: 0
-  Icon: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
+  _Icon: {fileID: 0}
+  _Model: {fileID: 0}
 --- !u!1 &6825236859405863061
 GameObject:
   m_ObjectHideFlags: 0
