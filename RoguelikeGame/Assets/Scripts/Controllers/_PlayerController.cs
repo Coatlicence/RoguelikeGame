@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 
 
@@ -10,14 +11,14 @@ public class _PlayerController : StandartController
 {
     double _timer;
     bool TimerOn;
-    //[SerializeField]
-    //public GameObject weaponFactory;
+    [SerializeField]
+    public WeaponFactory weaponFactory;
     public GameObject CraftStation;
     private void Start()
     {
         _timer = 0;
         TimerOn = false;
-        //WeaponFactory factory = weaponFactory.GetComponent<WeaponFactory>();
+        //WeaponFactory weaponFactory = GetComponent<WeaponFactory>();
         //factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
     
@@ -113,7 +114,7 @@ public class _PlayerController : StandartController
             {
                 Vector3 tm = GetComponentInParent<Transform>().localPosition;
                 //Quaternion q = GetComponentInParent<Transform>().rotation;
-                Quaternion q =transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
+                Quaternion q = transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
                 int tmp = 0;
                 attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
             }
@@ -139,8 +140,26 @@ public class _PlayerController : StandartController
         if (_CurrentFocus == Focus.INVENTORY)
             WASD?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.N))
-            GetComponent<Inventory>().Throw(typeof(Emerald));
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            animator.SetTrigger("Attack");
+
+            Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 3, 4));
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent(out IDamagable dmg))
+                {
+                    uint damage = (uint)UnityEngine.Random.Range(5, 10);
+
+                    dmg.TakeDamage(damage);
+                }
+            }
+
+        }
+        //weaponFactory.CreateRandomWeapon(0, transform.position, Quaternion.identity).GetComponent<Weapon>();
+
+
     }
 
     private delegate void ControllerMethod();
@@ -264,11 +283,8 @@ public class _PlayerController : StandartController
 
     protected override void Dash()
     {
-        if (dashable)
-        {
-            animator.SetFloat("Run", 0f);
-            animator.SetTrigger("Dash");
-            
+        if (dashable && RunScaler > 0.1)
+        {            
             StartCoroutine(dashable.Dash());
         }
     }

@@ -43,6 +43,9 @@ public class Dashable : MonoBehaviour
         // Dash logic
         DashCountsCurrent--;
 
+        _PlayerController._Instance.animator.SetFloat("Run", 0f);
+        _PlayerController._Instance.animator.SetTrigger("Dash");
+
         body.velocity = new Vector3(Math.Sign(body.velocity.x) * DashPower, body.velocity.y, Math.Sign(body.velocity.z) * DashPower);
 
         isDashing = true;

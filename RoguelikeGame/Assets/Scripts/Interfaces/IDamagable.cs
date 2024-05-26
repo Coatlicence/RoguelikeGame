@@ -15,13 +15,16 @@ public class IDamagable : MonoBehaviour
 
     [SerializeField]
     protected float InvulnerableTime = 0.1f;
-    private void Awake()
+    private void Start()
     {
-        if(TryGetComponent<AgentQDS>(out var agentQDS))
-        {
-            onhalf = agentQDS.OnHalf;
-        }
-        OnHalfDamage += onhalf;
+        //if(TryGetComponent<AgentQDS>(out var agentQDS))
+        //{
+        //    onhalf = agentQDS.OnHalf;
+        //}
+        //OnHalfDamage += onhalf;
+
+        if (Invulnerable)
+            StartCoroutine(MakeObjectVurnerable(InvulnerableTime));
     }
     public void SetMaxHealth(int maxHealth)
     {
@@ -51,26 +54,26 @@ public class IDamagable : MonoBehaviour
         Health = health;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(uint damage)
     {
-        
         if (Invulnerable) return;
-        if (damage <= 0) return;
 
-        Health -= damage;
+        Health -= (int)damage;
 
         if (Health <= 0)
+        {
+            onDie();
             Destroy(gameObject);
+            return;
+        }
 
-        if(Health<MaxHealth/2)
-            if(OnHalfDamage != null)
-                OnHalfDamage();
+        //if(Health<MaxHealth/2)
+        //    if(OnHalfDamage != null)
+        //        OnHalfDamage();
 
         Invulnerable = true;
 
-        StartCoroutine(MakeObjectVurnerable(InvulnerableTime));
-
-        
+        StartCoroutine(MakeObjectVurnerable(InvulnerableTime));        
     }
 
     IEnumerator MakeObjectVurnerable(float timeInSec)
@@ -79,4 +82,7 @@ public class IDamagable : MonoBehaviour
 
         Invulnerable = false;
     }
+
+    public delegate void OnDie();
+    public OnDie onDie;
 }

@@ -18,7 +18,7 @@ public class SlashDoDamage : DoDamageDecorator
             {
                 if (collider.TryGetComponent<IDamagable>(out IDamagable dmg))
                 {
-                    dmg.TakeDamage(Random.Range(weapon.GetMinDamage() + _upgrate * (int)(_damageBoost * weapon.GetMinDamage()),
+                    dmg.TakeDamage((uint)Random.Range(weapon.GetMinDamage() + _upgrate * (int)(_damageBoost * weapon.GetMinDamage()),
                         weapon.GetMaxDamage() + _upgrate * (int)(_damageBoost * weapon.GetMaxDamage())));
 
                 }

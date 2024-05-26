@@ -129,7 +129,12 @@ public class Inventory : MonoBehaviour
         if (item) Throw(item.GetType());
     }
 
-    // Finds first type match and throws it from player inventory
+    /// <summary>
+    /// Finds first type match and throws it from player inventory
+    /// !!!!!!! All Throw methods must attach items to WorldManager._Instance._CurrentLevel!!!!!
+    /// WorldManager components exists on Managers prefab. Just put it on Level
+    /// </summary>
+    /// <param name="itemType"></param>
     public void Throw(Type itemType)
     {
         var item = HasItem(itemType);
@@ -141,7 +146,7 @@ public class Inventory : MonoBehaviour
         if (item == _ChoosedItem)
             _ChoosedItem = null;
 
-        item.transform.SetParent(null, false);
+        item.transform.SetParent(WorldManager._Instance._CurrentLevel.transform, false);
 
         slot.transform.SetParent(null, false);
 

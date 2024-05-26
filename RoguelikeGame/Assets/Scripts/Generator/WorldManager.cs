@@ -30,10 +30,13 @@ public class WorldManager : MonoBehaviour
     [Tooltip("Inventory slot which contains Item inside")]
     public GameObject _ItemSlotPrefab;
 
-    [Tooltip("Item prefab, which exists in world and can be interactable")]
+    [Tooltip("Item prefab, which will be spawn in world and can be interactable")]
     public GameObject _ItemPrefab;
 
-    
+    [Tooltip("Prefab of crate with loot tables")]
+    public GameObject _CratePrefab;
+
+    public GameObject[] _ObstaclePrefabs;
 
     // Spawns item in location and Attaches it to CurrentLevel
     public GameObject SpawnItem(Type itemType, Vector3 position)
@@ -60,14 +63,17 @@ public class WorldManager : MonoBehaviour
             (
             _ItemPrefab, 
             position, 
-            Quaternion.identity, 
-            _CurrentLevel.transform
+            Quaternion.identity 
             );
+
+        itemObject.transform.SetParent(_CurrentLevel.transform, true);
+
+        //itemObject.transform.localPosition = position;
 
         Item item = (Item)itemObject.AddComponent(itemType);
 
         if (item._Model)
-            Instantiate(item._Model).transform.SetParent(item.transform, false);
+            Instantiate(item._Model).transform.SetParent(itemObject.transform, false);
         else
             Debug.LogError($"{itemType} doesnt have model");
 

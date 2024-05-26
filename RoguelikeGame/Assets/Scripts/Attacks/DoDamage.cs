@@ -41,9 +41,11 @@ public abstract class DoDamage : Command
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<IDamagable>(out IDamagable dmg))
+            if (collider.TryGetComponent(out IDamagable dmg))
             {
-                dmg.TakeDamage(Random.Range(weapon.GetMinDamage(),weapon.GetMaxDamage()));
+                uint damage = (uint)Random.Range(weapon.GetMinDamage(), weapon.GetMaxDamage());
+
+                dmg.TakeDamage(damage);
 
             }
         }

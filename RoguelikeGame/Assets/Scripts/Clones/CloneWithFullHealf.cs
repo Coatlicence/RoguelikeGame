@@ -23,7 +23,7 @@ public class CloneWithFullHealf : BaseClone
         if (tmpHealtf >= 0)
         {
             clone.GetComponent<IDamagable>().SetMaxHealth(tmpHealtf);
-            _Damagable.TakeDamage(tmpHealtf);
+            _Damagable.TakeDamage((uint)tmpHealtf);
         }
         else return null;
         
