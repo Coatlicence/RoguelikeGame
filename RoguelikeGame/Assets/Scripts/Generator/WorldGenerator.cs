@@ -213,17 +213,22 @@ public class RoomBuilder
             return;
         }
 
+        percent = 1 - percent;
+
         foreach (var createPos in _Room.CratePositions)
         {
             if (percent > Range(0.01f, 1f))
             {
-                if (createPos.transform.childCount > 0)
-                GameObject.Destroy(createPos.transform.GetChild(0).gameObject);
-                //var crate = GameObject.Instantiate(WorldManager._Instance._CratePrefab, createPos.transform);
+                var crate = GameObject.Instantiate
+                    (
+                    WorldManager._Instance._CratePrefab,
+                    Vector3.zero,
+                    Quaternion.Euler(0f, Range(-180f, 180f), 0f)
+                    );
 
-                //crate.transform.SetParent(createPos.transform, false);
+                crate.transform.SetParent(createPos.transform, false);
             }
-            
+
         }
     }
 
@@ -235,19 +240,20 @@ public class RoomBuilder
             return;
         }
 
+        percent = 1 - percent;
+
         foreach (var obstaclePos in _Room.ObstaclePositions)
         {
-            if (obstaclePos.transform.childCount > 0) 
-                GameObject.Destroy(obstaclePos.transform.GetChild(0).gameObject);
-
             if (percent > Range(0.01f, 1f))
             {
-                GameObject.Instantiate
+                var obstacle = GameObject.Instantiate
                     (
                     WorldManager._Instance._ObstaclePrefabs[Range(0, WorldManager._Instance._ObstaclePrefabs.Length)],
-                    obstaclePos.transform.position,
+                    Vector3.zero,
                     Quaternion.Euler(0f, Range(-180f, 180f), 0f)
                     );
+
+                obstacle.transform.SetParent(obstaclePos.transform, false);
             }
         }
     }
