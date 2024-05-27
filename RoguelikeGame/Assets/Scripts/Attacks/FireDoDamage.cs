@@ -16,7 +16,7 @@ public class FireDoDamage : DoDamageDecorator
 
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<IDamagable>(out IDamagable dmg))
+            if (collider!=null&& collider.TryGetComponent<IDamagable>(out IDamagable dmg))
             {
                 await FireAsync(dmg, UnityEngine.Random.Range(5, 10));
 

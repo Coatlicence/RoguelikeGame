@@ -94,7 +94,7 @@ public class IDamagable : MonoBehaviour
 
         if (Health <= 0)
         {
-            //onDie();
+            onDie();
             Destroy(gameObject);
             return;
         }
