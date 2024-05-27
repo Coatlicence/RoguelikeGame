@@ -45,6 +45,8 @@ public class Room : MonoBehaviour
         CratePositions      = GameObject.FindGameObjectsWithTag("Room_CratePosition");
         ObstaclePositions   = GameObject.FindGameObjectsWithTag("Room_ObstaclePosition");
 
+        GameObject.FindObjectsOfType<Item>();
+
         FindNextRoomTriggers(gameObject.transform);
     }    
 

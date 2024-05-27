@@ -7,6 +7,19 @@ public class Movable : MonoBehaviour
     [SerializeField]
     private float Speed;
 
+    public float GetSpeed() { return Speed; }
+
+    public void SetSpeed(float speed)
+    {
+        if (speed <= 0)
+        {
+            Debug.LogError("speed must be more than 0");
+        }
+
+        Speed = speed;
+    }
+
+
     [SerializeField]
     private Rigidbody body;
 

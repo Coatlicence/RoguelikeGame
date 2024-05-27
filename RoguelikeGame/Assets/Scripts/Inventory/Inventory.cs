@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour
     public bool Add(Type itemType)
     {
         // Create item prefab        
-        var itemObject = WorldManager._Instance.SpawnItem(itemType, new Vector3(0, 0, 0));
+        var itemObject = WorldManager._Instance.SpawnItem(itemType, _PlayerController._Instance.transform.position);
 
         if (!itemObject)
         {

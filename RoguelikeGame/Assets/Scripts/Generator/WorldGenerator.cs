@@ -85,7 +85,8 @@ public class WorldGenerator : MonoBehaviour
         builder.WithPercentOfTriggers(.5f);
         builder.WithPercentOfCrates(.5f);
         builder.WithPercentOfObstacles(.8f);
-
+        
+        GameTrials.GetInstance().StartRandomTrial();
     }
 
     /// <summary>
@@ -103,7 +104,11 @@ public class WorldGenerator : MonoBehaviour
         {
             if (roomPair.Room == room && roomPair.Location == loc)
                 rooms = roomPair.Rooms;
-        }
+
+            var res = AllRooms.Find(r => r.Room == room);
+
+            
+        }   
 
         if (rooms.Count == 0)
         {
@@ -111,7 +116,7 @@ public class WorldGenerator : MonoBehaviour
             return null;
         }
 
-        return rooms[UnityEngine.Random.Range(0, rooms.Count)];
+        return rooms[Range(0, rooms.Count)];
     }
 
     // Only for test
