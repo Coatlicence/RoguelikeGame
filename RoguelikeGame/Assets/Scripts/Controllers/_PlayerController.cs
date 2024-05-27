@@ -109,20 +109,6 @@ public class _PlayerController : StandartController
             MOUSE_LEFT?.Invoke();
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            if(attackable.FirstWeapon && attackable.FirstWeapon.FirstAttack.ReleaseHandler!= null)
-            {
-                Vector3 tm = GetComponentInParent<Transform>().localPosition;
-                //Quaternion q = GetComponentInParent<Transform>().rotation;
-                Quaternion q = transform.Find("Idle").GetComponentInChildren<Transform>().rotation;
-                int tmp = 0;
-                attackable.FirstWeapon.FirstAttack.ReleaseHandler.Do(_timer, ref tmp, tm, q);
-            }
-            _timer = 0;
-            TimerOn = false;
-            cuat = 0;
-            
-        }
             MOUSE_LEFT_UP?.Invoke();
 
         if (Input.GetMouseButtonDown(1))
@@ -140,23 +126,23 @@ public class _PlayerController : StandartController
         if (_CurrentFocus == Focus.INVENTORY)
             WASD?.Invoke();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            animator.SetTrigger("Attack");
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    animator.SetTrigger("Attack");
 
-            Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 3, 4));
+        //    Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(4, 3, 4));
 
-            foreach (Collider collider in colliders)
-            {
-                if (collider.TryGetComponent(out IDamagable dmg))
-                {
-                    uint damage = (uint)UnityEngine.Random.Range(5, 10);
+        //    foreach (Collider collider in colliders)
+        //    {
+        //        if (collider.TryGetComponent(out IDamagable dmg))
+        //        {
+        //            uint damage = (uint)UnityEngine.Random.Range(5, 10);
 
-                    dmg.TakeDamage(damage);
-                }
-            }
+        //            dmg.TakeDamage(damage);
+        //        }
+        //    }
 
-        }
+        //}
         //weaponFactory.CreateRandomWeapon(0, transform.position, Quaternion.identity).GetComponent<Weapon>();
 
 
@@ -302,6 +288,10 @@ public class _PlayerController : StandartController
         SetFocus(Focus.GAME);
     }
 
+    void CreateWeapone()
+    {
+        WorldManager._Instance.GetComponent<WeaponFactory>().CreateRandomWeapon(0,new Vector3(0,2,0),Quaternion.identity);
+    }
     /// -----------------------------------------------------
     /// FOCUS INVENTORY
     protected void ThrowItem()

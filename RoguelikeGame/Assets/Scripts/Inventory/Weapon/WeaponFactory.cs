@@ -64,6 +64,7 @@ public class WeaponFactory : MonoBehaviour
 
         //��������� �������� ����� �� �����
         StreamReader inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Swords/namesOfSwords.txt");
+        NamesOfSwords = new List<string>();
         while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
@@ -74,6 +75,7 @@ public class WeaponFactory : MonoBehaviour
 
         //��������� �������� ����� �� �����
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Spears/namesOfSpears.txt");
+        NamesOfSpears = new List<string>();
         while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
@@ -83,6 +85,7 @@ public class WeaponFactory : MonoBehaviour
 
         //��������� �������� ������� �� �����
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Axes/namesOfAxes.txt");
+        NamesOfAxes = new List<string>();
         while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
@@ -90,7 +93,7 @@ public class WeaponFactory : MonoBehaviour
         }
         inp_stm.Close();
         inp_stm = new StreamReader("Assets/Models/WeaponParts/Resources/Bows/namesOfBows.txt");
-
+        NamesOfBows = new List<string>();
         //��������� �������� ����� �� �����
         while (!inp_stm.EndOfStream)
         {
