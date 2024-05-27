@@ -8,6 +8,7 @@ using Unity.Barracuda;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using static UnityEditor.PlayerSettings;
 
 
 public class WeaponFactory : MonoBehaviour
@@ -153,6 +154,22 @@ public class WeaponFactory : MonoBehaviour
         }
         return model;
     }
+    public void CreateFireSword(Vector3 pos, Quaternion quaternion)
+    {
+        GameObject model = GenerateSwordModel(pos, quaternion);
+        //model.AddComponent<Weapon>();
+        SetSwordParametr(model, Random.Range(10, 20), Random.Range(0, 9), (uint)Random.Range(0, 100), Random.Range(50, 100), 0.5f);
+        var tmp = model.GetComponent<Weapon>();
+        SetFireHandlers(ref tmp, 0.4f, 0.2f, 2, 6);
+    }
+    public void CreatePoisonSword(Vector3 pos, Quaternion quaternion)
+    {
+        GameObject model = GenerateSwordModel(pos, quaternion);
+        //model.AddComponent<Weapon>();
+        SetSwordParametr(model, Random.Range(10, 20), Random.Range(0, 9), (uint)Random.Range(0, 100), Random.Range(50, 100), 0.5f);
+        var tmp = model.GetComponent<Weapon>();
+        SetPoisonHandlers(ref tmp, 0.4f, 0.2f, 2, 6);
+    }
     void SetBaseParametrs(ref Weapon tmpMeleeWeapon, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
         tmpMeleeWeapon.SetMaxDamage(MaxDamage);
@@ -164,7 +181,7 @@ public class WeaponFactory : MonoBehaviour
 
     void SetHandlers(ref Weapon tmpMeleeWeapon,float sumBoost,float delayTime,int minNumsOfUpdate,int MaxNumsOfUpdate)
     {
-        BaseAttack baseAttack = new BaseAttack();
+        BaseAttack baseAttack = new();
         DoDamage oNPress = new SlashDoDamage();
         oNPress.weapon = tmpMeleeWeapon;
 
@@ -191,7 +208,64 @@ public class WeaponFactory : MonoBehaviour
 
         }
     }
+    void SetFireHandlers(ref Weapon tmpMeleeWeapon, float sumBoost, float delayTime, int minNumsOfUpdate, int MaxNumsOfUpdate)
+    {
+        BaseAttack baseAttack = new();
+        DoDamage oNPress = new FireDoDamage();
+        oNPress.weapon = tmpMeleeWeapon;
 
+        switch (Random.Range(0, 2))
+        {
+            case 0:
+                baseAttack.PressHandler = oNPress;
+                tmpMeleeWeapon.FirstAttack = baseAttack;
+                break;
+            case 1:
+                oNPress.SetdamageBoost((Random.value + sumBoost) / 4);
+                Increase onIncreace = new Increase();
+                onIncreace.doDamage = oNPress;
+                onIncreace._stepIUp = Random.value + delayTime;
+                onIncreace.NumTolnc = Random.Range(minNumsOfUpdate, MaxNumsOfUpdate);
+
+
+                baseAttack.HoldHandler = onIncreace;
+                baseAttack.ReleaseHandler = oNPress;
+
+                tmpMeleeWeapon.FirstAttack = baseAttack;
+
+                break;
+
+        }
+    }
+    void SetPoisonHandlers(ref Weapon tmpMeleeWeapon, float sumBoost, float delayTime, int minNumsOfUpdate, int MaxNumsOfUpdate)
+    {
+        BaseAttack baseAttack = new();
+        DoDamage oNPress = new PoisonDoDamage();
+        oNPress.weapon = tmpMeleeWeapon;
+
+        switch (Random.Range(0, 2))
+        {
+            case 0:
+                baseAttack.PressHandler = oNPress;
+                tmpMeleeWeapon.FirstAttack = baseAttack;
+                break;
+            case 1:
+                oNPress.SetdamageBoost((Random.value + sumBoost) / 4);
+                Increase onIncreace = new Increase();
+                onIncreace.doDamage = oNPress;
+                onIncreace._stepIUp = Random.value + delayTime;
+                onIncreace.NumTolnc = Random.Range(minNumsOfUpdate, MaxNumsOfUpdate);
+
+
+                baseAttack.HoldHandler = onIncreace;
+                baseAttack.ReleaseHandler = oNPress;
+
+                tmpMeleeWeapon.FirstAttack = baseAttack;
+
+                break;
+
+        }
+    }
     void SetSwordParametr(GameObject model, int MaxDamage, int MinDamage, uint price, int durabilityMax, float multiplierOfDurability)
     {
         Weapon tmpMeleeWeapon = model.GetComponent<Weapon>();

@@ -18,6 +18,7 @@ public class _PlayerController : StandartController
     {
         _timer = 0;
         TimerOn = false;
+        CreateFireWeapone();
         //WeaponFactory weaponFactory = GetComponent<WeaponFactory>();
         //factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
     }
@@ -291,6 +292,10 @@ public class _PlayerController : StandartController
     void CreateWeapone()
     {
         WorldManager._Instance.GetComponent<WeaponFactory>().CreateRandomWeapon(0,new Vector3(0,2,0),Quaternion.identity);
+    }
+    void CreateFireWeapone()
+    {
+        WorldManager._Instance.GetComponent<WeaponFactory>().CreateFireSword(new Vector3(0, 2, 0), Quaternion.identity);
     }
     /// -----------------------------------------------------
     /// FOCUS INVENTORY
