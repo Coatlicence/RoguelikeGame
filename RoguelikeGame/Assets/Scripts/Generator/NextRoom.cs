@@ -51,7 +51,7 @@ public class NextRoom : MonoBehaviour
 
     private void Awake()
     {
-        NextRoomCollider = GetComponent<Collider>();
+        //NextRoomCollider = GetComponent<Collider>();
         TestText = GetComponentInChildren<TMP_Text>();
 
         if (!_Activated)

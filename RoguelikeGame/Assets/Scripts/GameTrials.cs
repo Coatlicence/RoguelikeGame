@@ -70,13 +70,16 @@ public class GameTrials : MonoBehaviour
 
         foreach (var t in TriggersToDeactivate)
         {
+            if (!t.GetComponent<Collider>().enabled)
+                continue;
+
             Deactivatedtriggers.Add(t);
 
             t.SetActivated(false);
         }
 
         // Starting Trial
-        var result = await _Trials[Random.Range(0, _Trials.Count)](10000);
+        var result = await _Trials[Random.Range(0, _Trials.Count)](20000);
 
         foreach (var t in Deactivatedtriggers)
         {
@@ -103,7 +106,7 @@ public class GameTrials : MonoBehaviour
     async Task<TrialResult> TrialDestroyAllCratesIn(int millisecs)
     {
         // check the possibility of starting the trial
-        if (FindObjectsOfType<LootTable>().Length < 0)
+        if (FindObjectsOfType<LootTable>().Length <= 0)
         {
             Debug.Log("No Crates in scene");
             return TrialResult.NotStarted;
@@ -128,7 +131,6 @@ public class GameTrials : MonoBehaviour
     }
 
     /// Reward
-    
     private void RewardAddItem()
     {
         if (_PlayerController._Instance) 
@@ -136,7 +138,6 @@ public class GameTrials : MonoBehaviour
     }
 
     /// Punishes
-    
     private void PunishMakeSlower() 
     {
         if (!_PlayerController._Instance) 

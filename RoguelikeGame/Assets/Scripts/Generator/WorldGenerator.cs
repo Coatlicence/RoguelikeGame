@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 using static UnityEngine.Random;
 
@@ -14,16 +10,6 @@ public class WorldGenerator : MonoBehaviour
     public static WorldGenerator _Instance;
     
     public LocationType CurrentLocation = LocationType.Seriantatum;
-
-    // Maximum number of rooms in one location. Total number of rooms:
-    // (кол-во локаций) * _MaxLengthOfLocation + (0; _SpreadOfLength)
-    [SerializeField] int _MaxLengthOfLocation = 20;
-
-    // Spread of length for 1 location
-    [SerializeField] int _SpreadOfLength = 5;
-
-    // Variable for count of room in one location
-    //int _CurrentLengthOfLocation = 0;
 
     // This variable used for storing all room which can be generated.
     // RoomPair represents rooms by location type and room type
@@ -82,9 +68,9 @@ public class WorldGenerator : MonoBehaviour
         
         RoomBuilder builder = new(roomComponent);
 
-        builder.WithPercentOfTriggers(.5f);
-        builder.WithPercentOfCrates(.5f);
-        builder.WithPercentOfObstacles(.8f);
+        builder.WithPercentOfTriggers(1f);
+        builder.WithPercentOfCrates(1f);
+        builder.WithPercentOfObstacles(0f);
         
         GameTrials.GetInstance().StartRandomTrial();
     }
@@ -118,24 +104,6 @@ public class WorldGenerator : MonoBehaviour
 
         return rooms[Range(0, rooms.Count)];
     }
-
-    // Only for test
-    public GameObject TryGetRandomRoom(LocationType loc, RoomType roomType)
-    {
-        int attempts = 1000;
-        GameObject room = null;
-        while (!room && attempts > 0) 
-        {
-            room = GetRandomRoom(loc, roomType);
-            attempts--;
-        }
-
-        if (!room) Debug.LogError($"Cant find {roomType} in {loc}");
-
-
-        return room;
-    }
-
 }
 
 [Serializable] 
@@ -187,7 +155,7 @@ public class RoomBuilder
         {
             if (!nextRoomTrigger || !nextRoomTrigger.GetActivated()) continue;
 
-            if (!isMinimumCountOfTriggersActivated || percentOfTriggers < Range(0f, 1f))
+            if (!isMinimumCountOfTriggersActivated || percentOfTriggers >= Range(0.01f, 1f))
             {
                 RoomType r = (RoomType)Range(0, Enum.GetValues(typeof(RoomType)).Length);
 
@@ -213,11 +181,11 @@ public class RoomBuilder
             return;
         }
 
-        percent = 1 - percent;
+        //percent = 1 - percent;
 
         foreach (var createPos in _Room.CratePositions)
         {
-            if (percent > Range(0.01f, 1f))
+            if (percent >= Range(0.01f, 1f))
             {
                 var crate = GameObject.Instantiate
                     (
@@ -240,11 +208,11 @@ public class RoomBuilder
             return;
         }
 
-        percent = 1 - percent;
+        //percent = 1 - percent;
 
         foreach (var obstaclePos in _Room.ObstaclePositions)
         {
-            if (percent > Range(0.01f, 1f))
+            if (percent >= Range(0.01f, 1f))
             {
                 var obstacle = GameObject.Instantiate
                     (
