@@ -110,13 +110,18 @@ public class GameTrials : MonoBehaviour
     
     private void RewardAddItem()
     {
-        _PlayerController._Instance.GetComponent<Inventory>().Add(typeof(Emerald));
+        if (_PlayerController._Instance) 
+            _PlayerController._Instance.GetComponent<Inventory>().Add(typeof(Emerald));
     }
 
     /// Punishes
     
     private void PunishMakeSlower() 
     {
+        if (!_PlayerController._Instance) 
+            return;
+
+
         var movable = _PlayerController._Instance.GetComponent<Movable>();
 
         movable.SetSpeed(1);
