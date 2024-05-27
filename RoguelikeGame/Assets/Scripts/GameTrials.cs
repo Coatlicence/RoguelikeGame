@@ -60,8 +60,24 @@ public class GameTrials : MonoBehaviour
         if (room.GetRoomType() != RoomType.FightSmall)
             return;
 
+        var TriggersToDeactivate = room.GetListOfNextRoomTriggers();
+        List<NextRoom> Deactivatedtriggers = new();
+
+        foreach (var t in TriggersToDeactivate)
+        {
+            Deactivatedtriggers.Add(t);
+
+            t.SetActivated(false);
+        }
+
         // Starting Trial
         var result = await _Trials[Random.Range(0, _Trials.Count)](10000);
+
+        foreach (var t in Deactivatedtriggers)
+        {
+            t.SetActivated(true);
+        }
+
 
         switch (result)
         {
