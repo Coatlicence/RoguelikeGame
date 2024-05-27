@@ -771,7 +771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6967439922768051526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.135363, y: -20.170721, z: 35.926323}
+  m_LocalPosition: {x: -30.135363, y: 0, z: 35.926323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1134,11 +1134,11 @@ PrefabInstance:
     - target: {fileID: 4368688942641877007, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4368688942641877007, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5775599218663015423, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_Name
       value: NextRoom (2)
@@ -1171,7 +1171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1310,11 +1310,11 @@ PrefabInstance:
     - target: {fileID: 4368688942641877007, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4368688942641877007, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 5775599218663015423, guid: 59c2c12ef174aa74db7d16749735879f, type: 3}
       propertyPath: m_Name
       value: NextRoom (1)
@@ -1409,7 +1409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1471,7 +1471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1533,7 +1533,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8122100236340299281, guid: 766b857f913c8d94f9dcf2abb8ad0b34, type: 3}
       propertyPath: m_LocalPosition.z

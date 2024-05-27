@@ -102,6 +102,9 @@ public class _PlayerController : StandartController
             WASD?.Invoke();
     }
     int cuat = 0;
+
+    public GameObject PrefabTest;
+
     protected void Update()
     {
         Timer();
@@ -146,6 +149,8 @@ public class _PlayerController : StandartController
         //}
         //weaponFactory.CreateRandomWeapon(0, transform.position, Quaternion.identity).GetComponent<Weapon>();
 
+        if (Input.GetKeyDown(KeyCode.V))
+            Instantiate(PrefabTest, Vector3.zero, Quaternion.identity);
 
     }
 
