@@ -11,6 +11,8 @@ public class InventoryUIManager : MonoBehaviour
 
     public static InventoryUIManager GetInstance() {  return singleton; }
 
+    
+
     [SerializeField] Inventory _Inventory;
 
     [SerializeField] TMP_Text _ItemLore;
@@ -19,7 +21,12 @@ public class InventoryUIManager : MonoBehaviour
 
     [SerializeField] TMP_Text _MaxItemCount;
 
+    [Header("referance")]
+
     [SerializeField] GameObject _InventoryGUI;
+
+    [SerializeField]public GameObject _CraftInventoryGUI;
+
 
     private void Start()
     {

@@ -10,8 +10,13 @@ public class DoDamageDecorator : DoDamage
         if (cuat == 0 || _timer / (cuat * weapon.GetDelayTime()) > 1)
         {
             cuat++;
-            ShowAnimation();
 
+            ShowAnimation();
+            MainAttack(pos,quaternion);
         }
+    }
+    public virtual void MainAttack(Vector3 pos, Quaternion quaternion)
+    {
+
     }
 }

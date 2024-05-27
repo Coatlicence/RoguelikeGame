@@ -52,7 +52,8 @@ MonoBehaviour:
   _Price: 0
   _Durability: 0
   _DurabilityMax: 0
-  Icon: {fileID: 0}
+  _Icon: {fileID: 0}
+  _Model: {fileID: 0}
   _MinDamage: 0
   _MaxDamage: 1
   _Range: 0
@@ -70,7 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb680054e5fbec84b8027471dd203785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 7562584566116643168}
+  _Item: {fileID: 7562584566116643168}
 --- !u!114 &6021440362452480916
 MonoBehaviour:
   m_ObjectHideFlags: 0

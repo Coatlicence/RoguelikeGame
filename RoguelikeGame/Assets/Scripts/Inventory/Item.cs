@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 [Serializable]
 public abstract class Item : MonoBehaviour
 {

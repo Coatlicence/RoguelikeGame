@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7132125372388681513}
   - component: {fileID: 7132125372388681518}
   - component: {fileID: 7132125372388681519}
-  - component: {fileID: 7639987668586540124}
   - component: {fileID: 9207382213655331332}
+  - component: {fileID: -919507709533848454}
   - component: {fileID: 4288801568029188595}
   m_Layer: 0
   m_Name: Managers
@@ -84,18 +84,6 @@ MonoBehaviour:
   _ItemPrefab: {fileID: 5083590743930861994, guid: 75fcb0f66b5511f4b80efe8ddfe323e8, type: 3}
   _CratePrefab: {fileID: 8996406445825729767, guid: 83dd21d78ba2cdd4d8837ef84f141e51, type: 3}
   _ObstaclePrefabs: []
---- !u!114 &7639987668586540124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132125372388681516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1513bbf9370a4984490cdcb99111ccd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9207382213655331332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +99,18 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!114 &-919507709533848454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7132125372388681516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934a28bb24b74204b906778e02baf896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4288801568029188595
 MonoBehaviour:
   m_ObjectHideFlags: 0

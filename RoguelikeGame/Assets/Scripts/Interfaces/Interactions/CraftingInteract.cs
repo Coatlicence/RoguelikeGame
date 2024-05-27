@@ -5,10 +5,12 @@ using UnityEngine;
 public class CraftingInteract :IInteractable
 {
 
-    public GameObject UIPotion;
+    GameObject UIPotion;
+
     public override void Interact(StandartController activator)
     {
-        if(UIPotion != null) 
+        UIPotion = InventoryUIManager.GetInstance()._CraftInventoryGUI;
+        if (UIPotion != null) 
         {
             if(UIPotion.TryGetComponent<CraftInventory>(out var inventory))
             {
