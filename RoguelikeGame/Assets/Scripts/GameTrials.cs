@@ -12,6 +12,9 @@ public enum TrialResult
 
 public class GameTrials : MonoBehaviour
 {
+    [SerializeField]
+    bool StartTrial = true;
+
     static GameTrials _Instance;
 
     public static GameTrials GetInstance()
@@ -49,6 +52,8 @@ public class GameTrials : MonoBehaviour
 
     public async void StartRandomTrial()
     {
+        if (!StartTrial) return;
+
         if (_Trials.Count <= 0)
         {
             Debug.LogError("There is no any trials in _Trials[]");
