@@ -4,16 +4,29 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// class invetory of object
+/// </summary>
 public class Inventory : MonoBehaviour
 {
+    /// <summary>
+    /// max count of items
+    /// </summary>
     [SerializeField] protected uint _MaxItemCount = 10;
-
+    
+    /// <summary>
+    /// game objects with items-gameObjects
+    /// </summary>
     [Header("Container of Slot objects")]
     [SerializeField] protected GameObject _Items;
 
-    // Choosed Item presents the item in inventory on UI info tab
+    /// <summary>
+    /// Choosed Item presents the item in inventory on UI info tab
+    /// </summary>    
     private Item _choosedItem;
-
+    /// <summary>
+    /// Choosed Item to get and set it
+    /// </summary>    
     public Item _ChoosedItem
     {
         get
@@ -51,12 +64,22 @@ public class Inventory : MonoBehaviour
             InventoryUIManager.GetInstance().UpdateItemLore(_choosedItem);
         }
     }
-
+    /// <summary>
+    /// get maxIremCount
+    /// </summary>
+    /// <returns>max count of item</returns>
     public uint GetMaxItemCount() { return _MaxItemCount; }
-
+    /// <summary>
+    /// get gameObject with items
+    /// </summary>
+    /// <returns>gameObject with items</returns>
     public GameObject GetItems() { return _Items; }
 
-    // Tries to get component Item on world gameObject
+    /// <summary>
+    /// adds item to inventure
+    /// </summary>
+    /// <param name="item"> item to add</param>
+    /// <returns>added item or not</returns>
     public bool Add(GameObject item)
     {
         if (!item) { return false; }
@@ -68,7 +91,11 @@ public class Inventory : MonoBehaviour
 
         return false;
     }
-
+    /// <summary>
+    /// adds item to inventure
+    /// </summary>
+    /// <param name="item">item to add</param>
+    /// <returns>added item or not</returns>
     public bool Add(Item item)
     {
         if (item == null)
@@ -104,11 +131,11 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    private void Start()
-    {
-        //Add(typeof(Emerald));
-    }
-
+    /// <summary>
+    /// adds item to inventure
+    /// </summary>
+    /// <param name="itemType">item to add</param>
+    /// <returns>added item or not</returns>
     public bool Add(Type itemType)
     {
         // Create item prefab        
@@ -123,7 +150,10 @@ public class Inventory : MonoBehaviour
         // assign it with other function
         return Add(itemObject.GetComponent<Item>());
     }
-
+    /// <summary>
+    /// Finds first type match and throws it from player inventory
+    /// </summary>
+    /// <param name="item">item to drop</param>
     public void Throw(Item item)
     {
         if (item) Throw(item.GetType());
@@ -131,10 +161,8 @@ public class Inventory : MonoBehaviour
 
     /// <summary>
     /// Finds first type match and throws it from player inventory
-    /// !!!!!!! All Throw methods must attach items to WorldManager._Instance._CurrentLevel!!!!!
-    /// WorldManager components exists on Managers prefab. Just put it on Level
     /// </summary>
-    /// <param name="itemType"></param>
+    /// <param name="itemType"> type item to drop</param>
     public void Throw(Type itemType)
     {
         var item = HasItem(itemType);
@@ -162,6 +190,11 @@ public class Inventory : MonoBehaviour
         _ChoosedItem = it._Item;
     }
 
+    /// <summary>
+    /// Check has item in inventory or not
+    /// </summary>
+    /// <param name="item"> itemtype to check</param>
+    /// <returns>item or null if is not item in inventory</returns>
     public Item HasItem(Type item)
     {
         for (Iterator it = new(this); it != null; it++)
@@ -172,7 +205,11 @@ public class Inventory : MonoBehaviour
 
         return null;
     }
-
+    /// <summary>
+    /// Check has item in inventory or not
+    /// </summary>
+    /// <param name="item">item to check</param>
+    /// <returns> find item or not</returns>
     public bool HasItem(Item item)
     {
         if (!item) return false;
@@ -185,6 +222,10 @@ public class Inventory : MonoBehaviour
 
         return false;
     }
+    /// <summary>
+    /// return list of items in inventory
+    /// </summary>
+    /// <returns></returns>
     public List<Item> GetItemsList()
     {
         List<Item> list = new List<Item>();
@@ -198,10 +239,18 @@ public class Inventory : MonoBehaviour
         }
         return list;
     }
+    /// <summary>
+    /// Delete item from inventory
+    /// </summary>
+    /// <param name="item"> item to delete</param>
     public void Delete(Item item)
     {
         if (item) Delete(item.GetType());
     }
+    /// <summary>
+    /// Delete first item with itemType from inventory
+    /// </summary>
+    /// <param name="item"> itemtype to delete</param>
     public void Delete(Type itemType)
     {
         var item = HasItem(itemType);

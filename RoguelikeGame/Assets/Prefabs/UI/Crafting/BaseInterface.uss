@@ -3,12 +3,12 @@
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
-    background-color: rgba(99, 99, 99, 255);
+    background-color: rgb(99, 99, 99);
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    color: rgba(190, 161, 85, 255);
+    color: rgb(190, 161, 85);
 }
 
 .Head1 {
@@ -16,15 +16,20 @@
 }
 
 .Inventore {
-    background-color: rgba(142, 104, 104, 255);
+    background-color: rgb(142, 104, 104);
     align-items: stretch;
     border-left-width: 10px;
     border-right-width: 10px;
     border-top-width: 10px;
     border-bottom-width: 10px;
-    border-left-color: rgba(92, 101, 79, 255);
-    border-right-color: rgba(92, 101, 79, 255);
-    border-top-color: rgba(92, 101, 79, 255);
-    border-bottom-color: rgba(92, 101, 79, 255);
+    border-left-color: rgb(92, 101, 79);
+    border-right-color: rgb(92, 101, 79);
+    border-top-color: rgb(92, 101, 79);
+    border-bottom-color: rgb(92, 101, 79);
     height: 120px;
+    left: 50%;
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    opacity: 1;
 }

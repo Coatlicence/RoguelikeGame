@@ -14,21 +14,24 @@ public class _PlayerController : StandartController
     [SerializeField]
     public WeaponFactory weaponFactory;
     public GameObject CraftStation;
+    public GameObject Menu;
     private void Start()
     {
         _timer = 0;
         TimerOn = false;
-        CreateFireWeapone();
+        //SetFocus(Focus.MENU);
+        //CreateFireWeapone();
         //WeaponFactory weaponFactory = GetComponent<WeaponFactory>();
-        //factory.CreateRandomWeapon(0, new Vector3(1, 4, 1), Quaternion.identity).GetComponent<Weapon>();
+        //WorldManager._Instance.GetComponent<WeaponFactory>().CreateRandomWeapon(0, new Vector3(0, 2, 0), Quaternion.identity);
     }
-    
+
     public enum Focus
     {
         EMPTY = 0,
         GAME,
         INVENTORY,
         CRAFT,
+        MENU,
         // add other focuses
     }
     //private Collider[] Colliders = new Collider[100];
@@ -92,8 +95,16 @@ public class _PlayerController : StandartController
             case Focus.CRAFT:
                 I = CloseCraft;
                 break;
+            case Focus.MENU:
+                I = CloseMenu;
+                break;
 
         }
+    }
+    private void CloseMenu()
+    {
+        Menu.SetActive(false);
+
     }
 
     protected void FixedUpdate()

@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Prefabs/UI/Crafting/BaseInterface.uss?fileID=7433441132597879392&amp;guid=36e596c6a50b33341b86b5c22368ef74&amp;type=3#BaseInterface" />
-    <ui:GroupBox style="height: 500px; width: 300px;">
-        <ui:ListView focusable="true" name="Items" header-title="Inventory" show-border="true" fixed-item-height="100" class="Inventore" style="height: 500px; width: 320px;" />
-    </ui:GroupBox>
+    <ui:VisualElement name="VisualElement" class="Inventory" style="height: 150px; width: 300px; background-color: rgb(135, 135, 135); left: 35%; top: 25%; right: 269px; position: relative;">
+        <ui:Label text="Курсовой проект" display-tooltip-when-elided="true" style="background-color: rgb(159, 159, 159); font-size: 18px; -unity-text-outline-color: rgb(255, 255, 255); color: rgb(0, 0, 0);" />
+        <ui:Label text="Тема курсового проекта:  «Игра жанра Action Roguelike: система крафта»" display-tooltip-when-elided="true" style="height: 67px; width: 300px; -unity-text-align: upper-left; white-space: normal; font-size: 16px; color: rgb(0, 0, 0);" />
+        <ui:Label text="Автор: Хмыренков Никита 22ВП1" display-tooltip-when-elided="true" style="font-size: 14px; color: rgb(0, 0, 0);" />
+    </ui:VisualElement>
 </ui:UXML>

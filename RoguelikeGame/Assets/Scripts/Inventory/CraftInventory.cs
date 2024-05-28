@@ -4,14 +4,27 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-
+/// <summary>
+/// inventory of craft table
+/// </summary>
 public class CraftInventory : Inventory
 {
-    // Start is called before the first frame update
+    /// <summary>
+    /// Inventory of player
+    /// </summary>
     [SerializeField]
     Inventory inventory;
+    /// <summary>
+    /// list with recipe to current place
+    /// </summary>
     static List<Recipe> recipes;
+    /// <summary>
+    /// list with ingidients added by player
+    /// </summary>
     static List<Type>  currentIndigrients;
+    /// <summary>
+    /// perform on start game
+    /// </summary>
     private void Awake()
     {
 
@@ -52,6 +65,10 @@ public class CraftInventory : Inventory
         currentIndigrients = new List<Type>();
 
     }
+
+    /// <summary>
+    /// perform on activate gameObject
+    /// </summary>
     void OnEnable()
     {
         _PlayerController._Instance.SetFocus(_PlayerController.Focus.CRAFT);
@@ -67,6 +84,9 @@ public class CraftInventory : Inventory
         }
 
     }
+    /// <summary>
+    /// perform on disable gameObject
+    /// </summary>
     private void OnDisable()
     {
         UpdateMainData();
@@ -74,7 +94,9 @@ public class CraftInventory : Inventory
         //inv = inventory;
         //_PlayerController._Instance.SetFocus(_PlayerController.Focus.GAME);
     }
-
+    /// <summary>
+    /// update current items
+    /// </summary>
     private void UpdateDate()
     {
         while (_Items.transform.childCount > 0)
@@ -83,6 +105,9 @@ public class CraftInventory : Inventory
         }
 
     }
+    /// <summary>
+    /// update items in player inventory
+    /// </summary>
     private void UpdateMainData()
     {
         while (_PlayerController._Instance.GetComponent<Inventory>().GetItems().transform.childCount > 0)
@@ -98,6 +123,9 @@ public class CraftInventory : Inventory
             }
         }
     }
+    /// <summary>
+    /// add choosen item in player inventory to current indigrients
+    /// </summary>
     public void AddIgridient()
     {
         if (_ChoosedItem != null)
@@ -107,14 +135,23 @@ public class CraftInventory : Inventory
             Delete(tmp);
         }
     }
+    /// <summary>
+    /// add water to current indigrients
+    /// </summary>
     public void AddWater()
     {
         currentIndigrients.Add(typeof(Water));
     }
+    /// <summary>
+    /// add shufle to current indigrients
+    /// </summary>
     public void AddShufle()
     {
         currentIndigrients.Add(typeof(Shoflle));
     }
+    /// <summary>
+    /// create potion by current indigriens and list of recipe
+    /// </summary>
     public void CreatePotion()
     {
         if (currentIndigrients.Count == 0) return;

@@ -336,7 +336,8 @@ public class WeaponFactory : MonoBehaviour
         GameObject randomGuard = GetRandomPart(guarts);
         GameObject Guart = Instantiate(randomGuard, Vector3.zero, Quaternion.identity);
         WeaponBody SWBody = Guart.GetComponent<WeaponBody>();
-        Guart.transform.parent = Sword.transform;
+        //Guart.transform.parent = Sword.transform;
+        Guart.transform.SetParent(Sword.transform, false);
 
         GameObject randomBlade = GetRandomPart(blades);
         GameObject blade=Instantiate(randomBlade, SWBody.UpSocket.position, Quaternion.identity);
@@ -346,7 +347,9 @@ public class WeaponFactory : MonoBehaviour
         GameObject hilt = Instantiate(randomHilt, SWBody.DownSocket.position, Quaternion.identity);
         hilt.transform.parent = Sword.transform;
 
-        Sword.transform.parent =weapon.transform;
+        //Sword.transform.parent =weapon.transform;
+        Sword.transform.SetParent(weapon.transform, false);
+        weapon.transform.SetParent(WorldManager._Instance._CurrentLevel.transform, false);
 
         //Sword.AddComponent<MeshCompile>();
 
@@ -357,12 +360,13 @@ public class WeaponFactory : MonoBehaviour
     GameObject GenerateSpearModel(Vector3 pos, Quaternion quaternion)
     {
         GameObject weapon = Instantiate(empty, pos, Quaternion.identity);
-        GameObject Spear = Instantiate(emptyTrue, pos, Quaternion.identity);
+        GameObject Spear = Instantiate(emptyTrue, Vector3.zero, Quaternion.identity);
         GameObject shaft = GetRandomPart(shafts);
         shaft = Instantiate(shaft,pos, Quaternion.identity);
         WeaponBody body = shaft.GetComponent<WeaponBody>();
-        shaft.transform.parent = Spear.transform;
 
+        //shaft.transform.parent = Spear.transform;
+        shaft.transform.SetParent(Spear.transform, false);
         GameObject spearhead = GetRandomPart(spearheads);
         spearhead = Instantiate(spearhead, body.UpSocket.position, Quaternion.identity);
         spearhead.transform.parent = Spear.transform;
@@ -371,18 +375,21 @@ public class WeaponFactory : MonoBehaviour
         pommel = Instantiate(pommel, body.DownSocket.position, Quaternion.identity);
         pommel.transform.parent = Spear.transform;
 
-        Spear.transform.parent = weapon.transform;
+        Spear.transform.SetParent(weapon.transform, false);
+        //Spear.transform.parent = weapon.transform;
+        weapon.transform.SetParent(WorldManager._Instance._CurrentLevel.transform, false);
         return weapon;
     }
     GameObject GenerateAxeModel(Vector3 pos, Quaternion quaternion)
     {
         GameObject weapon = Instantiate(empty, pos, Quaternion.identity);
 
-        GameObject Axe = Instantiate(empty, pos, Quaternion.identity);
+        GameObject Axe = Instantiate(empty, Vector3.zero, Quaternion.identity);
         GameObject handle = GetRandomPart(handles);
         handle = Instantiate(handle,pos,Quaternion.identity);
         WeaponBody body = handle.GetComponent<WeaponBody>();
-        handle.transform.parent = Axe.transform;
+        //handle.transform.parent = Axe.transform;
+        handle.transform.SetParent(Axe.transform, false);
 
         GameObject blade = GetRandomPart(axeBlades);
         blade = Instantiate(blade, body.UpSocket.position, Quaternion.identity);
@@ -396,7 +403,9 @@ public class WeaponFactory : MonoBehaviour
         pommel = Instantiate(pommel,body.DownSocket.position, Quaternion.identity);
         pommel.transform.parent= Axe.transform;
 
-        Axe.transform.parent = weapon.transform;
+        Axe.transform.SetParent(weapon.transform, false);
+        //Axe.transform.parent = weapon.transform;
+        weapon.transform.SetParent(WorldManager._Instance._CurrentLevel.transform, false);
 
         return weapon;
     }
